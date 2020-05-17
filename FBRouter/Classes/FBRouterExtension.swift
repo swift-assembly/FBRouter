@@ -15,11 +15,3 @@ public func  FBClassFromString(string: String)-> AnyClass?{
 	return NSClassFromString(stringName)
 }
 
-
-
-//extension String{
-//	func ClassFromString() -> AnyClass? {
-//		let stringName = FBRouterAppName! + "." + self
-//		return NSClassFromString(stringName)
-//	}
-//}
