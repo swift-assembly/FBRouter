@@ -50,8 +50,6 @@ public class FBBaseRouter:NSObject {
 	
 	@discardableResult
 	func openURLAction(urlAction:FBURLAction) -> UIViewController? {
-		
-		
 		return nil
 	}
 	

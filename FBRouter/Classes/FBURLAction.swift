@@ -37,24 +37,16 @@ public class FBURLTarget:NSObject{
 			self.targetType = FBTargetType.FBTargetTypeController
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
 }
 
 public class FBURLAction:NSObject {
 	var animation:Bool = false
+	var openExternal:Bool = false
+	var isSingleton:Bool = false
 	
 	var url:URL?
 	var urlTarget:FBURLTarget?
-	var openExternal:Bool?
 	
-	var isSingleton:Bool?
-
 	func URLFromString(host:String) -> URL? {
 		if host == ""{
 			return nil
@@ -62,11 +54,9 @@ public class FBURLAction:NSObject {
 		return  URL.init(string: FBRouter.router().scheme + "://" + host)
 	}
 	
-	
-	
-	public override init() {
+	override init() {
 		super.init()
-		
+		self.animation = false
 	}
 	
 
@@ -80,34 +70,21 @@ public class FBURLAction:NSObject {
 		self.url =  URL.init(string: url)
 	}
 	
-	public convenience init(httpUrl:String) {
-		self.init()		
-//		let urlString = URLFromString(host: "web") 
-		
+	public convenience init(httpUrl:String?) {
+		self.init()
+		self.url = URLFromString(host: "web")
+		if httpUrl?.isBlank == false{
+			self.url = self.url?.appendingQueryParameters(["url" : httpUrl!])
+		}
 	}
-	
-	
-	
 	
 }
 
 
-let KUrlCodingReservedCharacters = "!*'();:|@&=+$,/?%#[]{}"
 
 extension String {
-	@discardableResult
-	mutating func urlEncode() -> String {
-		if let encoded = addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) {
-			self = encoded
-		}
-		return self
-	}
-	
-    @discardableResult
-    mutating func urlDecode() -> String {
-        if let decoded = removingPercentEncoding {
-            self = decoded
-        }
-        return self
+	var isBlank: Bool {
+        let trimmedStr = self.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmedStr.isEmpty
     }
 }

@@ -17,18 +17,16 @@ public extension URL {
         guard let components = URLComponents(url: self, resolvingAgainstBaseURL: false), let queryItems = components.queryItems else { return nil }
 
         var items: [String: String] = [:]
-
         for queryItem in queryItems {
             items[queryItem.name] = queryItem.value
         }
-
         return items
     }
 
 }
 
 // MARK: - Initializers
-public extension URL {
+extension URL {
 
     /// SwifterSwift: Initializes an `URL` object with a base URL and a relative string. If `string` was malformed, returns `nil`.
     /// - Parameters:
