@@ -7,16 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C75CC31246FAD7000E2E7B0 /* FBURLAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C75CC30246FAD7000E2E7B0 /* FBURLAction.swift */; };
-		0C75CC33246FAD8D00E2E7B0 /* FBRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C75CC32246FAD8D00E2E7B0 /* FBRouter.swift */; };
-		0C75CC37246FBC6100E2E7B0 /* FBRouterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C75CC36246FBC6100E2E7B0 /* FBRouterExtension.swift */; };
-		0C75CC52246FF1C800E2E7B0 /* FBURLBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C75CC51246FF1C800E2E7B0 /* FBURLBridge.swift */; };
-		0C75CC5424700FFA00E2E7B0 /* FBNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C75CC5324700FFA00E2E7B0 /* FBNavigator.swift */; };
-		0C75CC582470EED700E2E7B0 /* FBBaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C75CC572470EED700E2E7B0 /* FBBaseRouter.swift */; };
-		0C75CC5A2470F73C00E2E7B0 /* FBNavigatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C75CC592470F73C00E2E7B0 /* FBNavigatorProtocol.swift */; };
-		0C75CC5C2470F9F400E2E7B0 /* UINavigationControllerFBRExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C75CC5B2470F9F400E2E7B0 /* UINavigationControllerFBRExtension.swift */; };
-		0C75CC5E2471024500E2E7B0 /* UIViewControllerFBRExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C75CC5D2471024500E2E7B0 /* UIViewControllerFBRExtension.swift */; };
-		0C75CC6024715FEF00E2E7B0 /* URLFBRExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C75CC5F24715FEF00E2E7B0 /* URLFBRExtension.swift */; };
 		0C85C41E246C4EF700676F64 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C85C41D246C4EF700676F64 /* AppDelegate.swift */; };
 		0C85C422246C4EF700676F64 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C85C421246C4EF700676F64 /* ViewController.swift */; };
 		0C85C427246C4EF800676F64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C85C426246C4EF800676F64 /* Assets.xcassets */; };
@@ -25,18 +15,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0C75CC30246FAD7000E2E7B0 /* FBURLAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBURLAction.swift; sourceTree = "<group>"; };
-		0C75CC32246FAD8D00E2E7B0 /* FBRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBRouter.swift; sourceTree = "<group>"; };
-		0C75CC36246FBC6100E2E7B0 /* FBRouterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBRouterExtension.swift; sourceTree = "<group>"; };
-		0C75CC51246FF1C800E2E7B0 /* FBURLBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBURLBridge.swift; sourceTree = "<group>"; };
-		0C75CC5324700FFA00E2E7B0 /* FBNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBNavigator.swift; sourceTree = "<group>"; };
 		0C75CC552470EA0900E2E7B0 /* ExampleDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ExampleDebug.entitlements; sourceTree = "<group>"; };
 		0C75CC562470EA4000E2E7B0 /* Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Example.entitlements; sourceTree = "<group>"; };
-		0C75CC572470EED700E2E7B0 /* FBBaseRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBBaseRouter.swift; sourceTree = "<group>"; };
-		0C75CC592470F73C00E2E7B0 /* FBNavigatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBNavigatorProtocol.swift; sourceTree = "<group>"; };
-		0C75CC5B2470F9F400E2E7B0 /* UINavigationControllerFBRExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerFBRExtension.swift; sourceTree = "<group>"; };
-		0C75CC5D2471024500E2E7B0 /* UIViewControllerFBRExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerFBRExtension.swift; sourceTree = "<group>"; };
-		0C75CC5F24715FEF00E2E7B0 /* URLFBRExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLFBRExtension.swift; sourceTree = "<group>"; };
 		0C85C41A246C4EF700676F64 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C85C41D246C4EF700676F64 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C85C421246C4EF700676F64 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -60,24 +40,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0C75CC2F246FAD3F00E2E7B0 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				0C75CC30246FAD7000E2E7B0 /* FBURLAction.swift */,
-				0C75CC51246FF1C800E2E7B0 /* FBURLBridge.swift */,
-				0C75CC32246FAD8D00E2E7B0 /* FBRouter.swift */,
-				0C75CC572470EED700E2E7B0 /* FBBaseRouter.swift */,
-				0C75CC36246FBC6100E2E7B0 /* FBRouterExtension.swift */,
-				0C75CC5B2470F9F400E2E7B0 /* UINavigationControllerFBRExtension.swift */,
-				0C75CC5D2471024500E2E7B0 /* UIViewControllerFBRExtension.swift */,
-				0C75CC5324700FFA00E2E7B0 /* FBNavigator.swift */,
-				0C75CC592470F73C00E2E7B0 /* FBNavigatorProtocol.swift */,
-				0C75CC5F24715FEF00E2E7B0 /* URLFBRExtension.swift */,
-			);
-			name = Classes;
-			path = ../../FBRouter/Classes;
-			sourceTree = "<group>";
-		};
 		0C85C411246C4EF600676F64 = {
 			isa = PBXGroup;
 			children = (
@@ -101,7 +63,6 @@
 			children = (
 				0C75CC562470EA4000E2E7B0 /* Example.entitlements */,
 				0C75CC552470EA0900E2E7B0 /* ExampleDebug.entitlements */,
-				0C75CC2F246FAD3F00E2E7B0 /* Classes */,
 				0C85C41D246C4EF700676F64 /* AppDelegate.swift */,
 				0C85C421246C4EF700676F64 /* ViewController.swift */,
 				0C85C426246C4EF800676F64 /* Assets.xcassets */,
@@ -242,17 +203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C75CC52246FF1C800E2E7B0 /* FBURLBridge.swift in Sources */,
-				0C75CC5A2470F73C00E2E7B0 /* FBNavigatorProtocol.swift in Sources */,
-				0C75CC5C2470F9F400E2E7B0 /* UINavigationControllerFBRExtension.swift in Sources */,
-				0C75CC582470EED700E2E7B0 /* FBBaseRouter.swift in Sources */,
-				0C75CC37246FBC6100E2E7B0 /* FBRouterExtension.swift in Sources */,
-				0C75CC33246FAD8D00E2E7B0 /* FBRouter.swift in Sources */,
 				0C85C422246C4EF700676F64 /* ViewController.swift in Sources */,
-				0C75CC5424700FFA00E2E7B0 /* FBNavigator.swift in Sources */,
-				0C75CC31246FAD7000E2E7B0 /* FBURLAction.swift in Sources */,
-				0C75CC5E2471024500E2E7B0 /* UIViewControllerFBRExtension.swift in Sources */,
-				0C75CC6024715FEF00E2E7B0 /* URLFBRExtension.swift in Sources */,
 				0C85C41E246C4EF700676F64 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
