@@ -15,7 +15,9 @@ class ViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+//        FBBaseRouter.init().openURLAction(urlAction: <#T##FBURLAction#>)
+//        FBURLAction.ini
+//        FBURLTarget.init(key: <#T##String#>, target: <#T##String#>)
 		// Do any additional setup after loading the view.
 	}
 
