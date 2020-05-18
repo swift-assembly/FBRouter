@@ -17,7 +17,9 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 //        FBBaseRouter.init().openURLAction(urlAction: <#T##FBURLAction#>)
 //        FBURLAction.ini
-//        FBURLTarget.init(key: <#T##String#>, target: <#T##String#>)
+//        FBURLTarget.init(key: T##String, target: T##String)
+        print(object_getClass(self)!)
+        print(self.classForCoder)
 		// Do any additional setup after loading the view.
 	}
 
