@@ -42,18 +42,26 @@ public class FBBaseRouter:NSObject {
 	}
 	@discardableResult
     func matchTargetWithURLAction(urlAction:FBURLAction) -> FBURLTarget? {
-        if urlAction.url?.host == "" {
+        guard let host = urlAction.url?.host  else{
             return nil
         }
-        return self.urlMappings[(urlAction.url?.host)!]
+        return self.urlMappings[host]
     }
     
     
 	@discardableResult
 	func obtainTargetControllerCheckURLAction(urlAction:FBURLAction) -> UIViewController? {
-		
+        guard let targetClass = urlAction.urlTarget?.targetClass else {
+            return nil
+        }
         
-		return nil
+        
+        
+        let viewController = self.mainNavigationContontroller?.viewControllers.fb_match(validate: { (item:UIViewController) -> Bool in
+            return item.isKind(of: targetClass)
+        })
+        
+		return viewController
 	}
     
     
@@ -74,13 +82,11 @@ public class FBBaseRouter:NSObject {
             }
             return nil
         }
-        
         urlAction.urlTarget = self.matchTargetWithURLAction(urlAction: urlAction)
-        if urlAction.urlTarget == nil {
+        guard urlAction.urlTarget != nil else{
             self.onMatchUnhandledURLAction(urlAction: urlAction)
             return nil
         }
-        
         
         
 		return nil
@@ -117,11 +123,13 @@ public class FBBaseRouter:NSObject {
     }
     
     func openExternal(urlAction:FBURLAction) {
+        
         UIApplication.shared.open(urlAction.url!, options: [:], completionHandler:{
-            (completion) in
-            if urlAction.completeBlock != nil{
-                urlAction.completeBlock!(completion)
+            (success) in
+            guard let complete = urlAction.completeBlock else{
+                return
             }
+            complete(success)
         })
     }
     
@@ -132,9 +140,10 @@ public class FBBaseRouter:NSObject {
     
     
     func callBack(urlAction:FBURLAction,success:Bool) {
-        if urlAction.completeBlock != nil{
-            urlAction.completeBlock!(success)
+        guard let complete = urlAction.completeBlock else{
+            return
         }
+        complete(success)
     }
 }
 

@@ -21,13 +21,15 @@ public enum FBAnimationOptions {
 public typealias FBRCompleteBlock = (Bool)->Void
 
 public class FBURLAction:NSObject {
-	var animation:Bool = false
-	var openExternal:Bool = false
-	var isSingleton:Bool = false
+	public var animation:Bool = false
+	public var openExternal:Bool = false
+	public var isSingleton:Bool = false
 	
-    var completeBlock:FBRCompleteBlock?
-	var url:URL?
-	var urlTarget:FBURLTarget?
+    public var completeBlock:FBRCompleteBlock?
+	public var url:URL?
+	public var urlTarget:FBURLTarget?
+    
+    
 	func URLFromString(host:String) -> URL? {
 		return  URL.init(string: FBRouter.router().scheme + "://" + host)
 	}

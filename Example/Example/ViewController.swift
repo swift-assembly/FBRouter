@@ -20,6 +20,7 @@ class ViewController: UIViewController {
 //        FBURLTarget.init(key: T##String, target: T##String)
         print(object_getClass(self)!)
         print(self.classForCoder)
+//        FBURLAction.init(url: "a")
 		// Do any additional setup after loading the view.
 	}
 
