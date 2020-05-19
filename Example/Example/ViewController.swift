@@ -12,24 +12,27 @@ import FBExtension
 
 class ViewController: UIViewController {
 
+    override func handleWithURLAction(_ urlAction: FBURLAction) -> Bool {
+        return true
+    }
+    
+    override class func needsLogin(_ urlAction: FBURLAction) -> Bool {
+        return false
+    }
+    
+    override class func isSingleton(_ urlAction: FBURLAction) -> Bool {
+        return false
+    }
+    
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-        //        FBURLAction.ini
-//        FBURLTarget.init(key: T##String, target: T##String)
-        print(object_getClass(self)!)
-        print(ViewController.isSingleton())
-//        FBURLAction.init(url: "a")
-		// Do any additional setup after loading the view.
-        print("aalall".base64Encoded!)
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        self.navigationController?.pushViewController(ViewController())
     }
-    
 
 }
 
