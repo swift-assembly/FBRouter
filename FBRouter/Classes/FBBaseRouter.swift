@@ -10,6 +10,8 @@ import UIKit
 
 
 public class FBBaseRouter:NSObject {
+ 
+    
 	var scheme:String
 	var urlMappings:Dictionary<String,FBURLTarget>
     var urlActionWaitingList:Array<FBURLAction>
@@ -54,9 +56,9 @@ public class FBBaseRouter:NSObject {
         guard let targetClass = urlAction.urlTarget?.targetClass else {
             return nil
         }
-        
-        
-        
+//        let selector = NSSelectorFromString("isSingleton")
+      
+//        targetClass.conforms(to: FBRouterControllerProtocol)
         let viewController = self.mainNavigationContontroller?.viewControllers.fb_match(validate: { (item:UIViewController) -> Bool in
             return item.isKind(of: targetClass)
         })

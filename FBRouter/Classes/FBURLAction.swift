@@ -28,8 +28,6 @@ public class FBURLAction:NSObject {
     public var completeBlock:FBRCompleteBlock?
 	public var url:URL?
 	public var urlTarget:FBURLTarget?
-    
-    
 	func URLFromString(host:String) -> URL? {
 		return  URL.init(string: FBRouter.router().scheme + "://" + host)
 	}

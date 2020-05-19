@@ -8,7 +8,7 @@
 import UIKit
 
 
-public protocol FBRouterControllerProtocol:NSObject {
+public protocol FBRouterControllerProtocol:AnyObject {
     static func isSingleton() -> Bool
     static func needsLogin(urlAction:FBURLAction) -> Bool
     func handleWithURLAction(urlAction:FBURLAction) ->Bool
