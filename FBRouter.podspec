@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
 #  s.source_files = 'FBExtension/Classes/**/*.swift'
   
   s.subspec 'FBRouter' do |ss|
-    ss.source_files = ['FBRouter/Classes/**/*.swift']
+    ss.source_files = ['FBRouter/Classes/**/*']
   end
   
   

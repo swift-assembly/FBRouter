@@ -35,6 +35,11 @@ public class FBBaseRouter:NSObject {
 	func setScheme(scheme:String)  {
 		self.scheme = scheme
 	}
+    
+    func inBlockMode() -> Bool {
+        return false
+    }
+    
 	func registURLMapping(urlmappings:Dictionary<String,String>)  {
 		self.lock.lock()
 		for item in urlmappings{
@@ -56,10 +61,10 @@ public class FBBaseRouter:NSObject {
         guard let targetClass = urlAction.urlTarget?.targetClass as? UIViewController.Type else {
             return nil
         }
-        let isSingleton = urlAction.isSingleton
-//        if targetClass.isSingleton() {
-//            isSingleton = true
-//        }
+        var isSingleton = urlAction.isSingleton
+        if targetClass.isSingleton(urlAction) {
+            isSingleton = true
+        }
         if isSingleton {
             return self.mainNavigationContontroller?.viewControllers.fb_match(
                 validate: { (item:UIViewController) -> Bool in
@@ -77,26 +82,30 @@ public class FBBaseRouter:NSObject {
         var success :Bool = false
         
         defer {
-            self.callBack(urlAction: urlAction, success: success)
+            callBack(urlAction: urlAction, success: success)
         }
         
-        if self.shouldOpenURLAction(urlAction: urlAction) == false{
+        if shouldOpenURLAction(urlAction: urlAction) == false{
             return nil
         }
         if urlAction.openExternal || urlAction.url?.scheme != self.scheme{
-            if self.willOpenExternal(urlAction: urlAction) {
-               self.openExternal(urlAction: urlAction)
+            if willOpenExternal(urlAction: urlAction) {
+               openExternal(urlAction: urlAction)
             }
             return nil
         }
         urlAction.urlTarget = self.matchTargetWithURLAction(urlAction: urlAction)
         guard urlAction.urlTarget != nil else{
-            self.onMatchUnhandledURLAction(urlAction: urlAction)
+            onMatchUnhandledURLAction(urlAction: urlAction)
             return nil
         }
+        guard let viewController = obtainTargetControllerCheckURLAction(urlAction: urlAction) else {
+            onMatchUnhandledURLAction(urlAction: urlAction)
+            return nil
+        }
+        onMatchViewController(viewController, urlAction: urlAction)
         
-        
-		return nil
+		return viewController
 	}
     
     
@@ -129,8 +138,11 @@ public class FBBaseRouter:NSObject {
         
     }
     
-    func openExternal(urlAction:FBURLAction) {
+    func onMatchViewController(_ controller:UIViewController,urlAction:FBURLAction)  {
         
+    }
+    
+    func openExternal(urlAction:FBURLAction) {
         UIApplication.shared.open(urlAction.url!, options: [:], completionHandler:{
             (success) in
             guard let complete = urlAction.completeBlock else{
