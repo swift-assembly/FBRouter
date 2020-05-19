@@ -10,20 +10,28 @@ import UIKit
 import FBRouter
 import FBExtension
 
-
 class ViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-//        FBBaseRouter.init().openURLAction(urlAction: <#T##FBURLAction#>)
-//        FBURLAction.ini
+
+        //        FBURLAction.ini
 //        FBURLTarget.init(key: T##String, target: T##String)
         print(object_getClass(self)!)
-        print(self.classForCoder)
+        print(ViewController.isSingleton())
 //        FBURLAction.init(url: "a")
 		// Do any additional setup after loading the view.
-	}
-
+        print("aalall".base64Encoded!)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        self.navigationController?.pushViewController(ViewController())
+    }
+    
 
 }
+
+
 

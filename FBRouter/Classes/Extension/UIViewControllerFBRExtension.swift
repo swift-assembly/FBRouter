@@ -8,18 +8,11 @@
 
 import UIKit
 
+
 public extension UIViewController {
-    func handleWithURLAction(_ urlAction:FBURLAction) ->Bool{
-        return true
-    }
-	
-    class func needsLogin(_ urlAction:FBURLAction) ->Bool{
-        return false
-    }
     
     class func isSingleton() -> Bool{
         return false
     }
-	
-	
+    
 }

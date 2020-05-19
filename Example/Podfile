@@ -6,7 +6,7 @@ use_frameworks!
 
 
 target 'Example' do
-	pod 'FBRouter', :path => '../'	
+	pod 'FBRouter', :path => '../'
 	pod 'FBExtension', :path => '../../FBExtension'
 	
 end

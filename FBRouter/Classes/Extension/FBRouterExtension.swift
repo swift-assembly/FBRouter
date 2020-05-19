@@ -8,10 +8,4 @@
 
 import Foundation
 
-let FBRouterAppName =  Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String?
-
-public func  FBClassFromString(string: String)-> AnyClass?{
-	let stringName = FBRouterAppName! + "." + string
-	return NSClassFromString(stringName)
-}
 

@@ -68,6 +68,7 @@ extension String {
         let trimmedStr = self.trimmingCharacters(in: .whitespacesAndNewlines)
         return trimmedStr.isEmpty
     }
+    
 }
 
 
@@ -93,3 +94,13 @@ public class FBURLTarget:NSObject{
         }
     }
 }
+
+
+
+let FBRouterAppName =  Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String?
+
+public func  FBClassFromString(string: String)-> AnyClass?{
+    let stringName = FBRouterAppName! + "." + string
+    return NSClassFromString(stringName)
+}
+

@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 public extension UINavigationController {
 	func pushViewController(_ viewController:UIViewController, completion: (() -> Void)? = nil) {
 		CATransaction.begin()
@@ -24,9 +23,6 @@ public extension UINavigationController {
 		popViewController(animated: animated)
 		CATransaction.commit()
 	}
-	
-	
-	
 	
 	
 }

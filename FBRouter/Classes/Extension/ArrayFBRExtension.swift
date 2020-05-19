@@ -5,7 +5,7 @@
 //  Created by flywithbug on 2020/5/18.
 //
 
-import Foundation
+import UIKit
 
 public extension Array where Element:UIViewController {
     typealias FBRValidationBlock = (_ obj:UIViewController)->Bool

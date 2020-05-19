@@ -56,15 +56,18 @@ public class FBBaseRouter:NSObject {
         guard let targetClass = urlAction.urlTarget?.targetClass as? UIViewController.Type else {
             return nil
         }
-        var isSingleton = urlAction.isSingleton
-        if targetClass.isSingleton() {
-            isSingleton = true
-        }
+        let isSingleton = urlAction.isSingleton
+//        if targetClass.isSingleton() {
+//            isSingleton = true
+//        }
         if isSingleton {
             return self.mainNavigationContontroller?.viewControllers.fb_match(
                 validate: { (item:UIViewController) -> Bool in
                 return item.isKind(of: targetClass)})
         }
+        
+        
+        
         return targetClass.init()
 	}
     
