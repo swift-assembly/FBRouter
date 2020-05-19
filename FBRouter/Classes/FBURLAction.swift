@@ -18,47 +18,25 @@ public enum FBAnimationOptions {
 	case FBAnimationOptionsPresented
 }
 
-public class FBURLTarget:NSObject{
-	var	key:String?
-	var	targetString:String?
-	var	targetClass:AnyClass?
-	var targetType:FBTargetType?
-	var	isSingleton:Bool
-	public override init() {
-		self.isSingleton = false
-	}
-	
-	init(key:String,target:String){
-		self.isSingleton = false
-		self.key = key
-		self.targetString = target
-		self.targetClass =  FBClassFromString(string: target)
-		if self.targetClass is UIViewController.Type{
-			self.targetType = FBTargetType.FBTargetTypeController
-		}
-	}
-}
+public typealias FBRCompleteBlock = (Bool)->Void
 
 public class FBURLAction:NSObject {
 	var animation:Bool = false
 	var openExternal:Bool = false
 	var isSingleton:Bool = false
 	
+    var completeBlock:FBRCompleteBlock?
 	var url:URL?
 	var urlTarget:FBURLTarget?
-	
 	func URLFromString(host:String) -> URL? {
-		if host == ""{
-			return nil
-		} 
 		return  URL.init(string: FBRouter.router().scheme + "://" + host)
 	}
 	
 	override init() {
 		super.init()
-		self.animation = false
 	}
 	
+    
 
 	public convenience init(host:String) {
 		self.init()
@@ -77,7 +55,10 @@ public class FBURLAction:NSObject {
 			self.url = self.url?.appendingQueryParameters(["url" : httpUrl!])
 		}
 	}
-	
+    
+    func setCompleteBlock(block:@escaping FBRCompleteBlock) {
+        self.completeBlock = block
+    }
 }
 
 
@@ -86,5 +67,29 @@ extension String {
 	var isBlank: Bool {
         let trimmedStr = self.trimmingCharacters(in: .whitespacesAndNewlines)
         return trimmedStr.isEmpty
+    }
+}
+
+
+
+
+public class FBURLTarget:NSObject{
+    var    key:String?
+    var    targetString:String?
+    var    targetClass:AnyClass?
+    var    targetType:FBTargetType?
+    
+    
+    public override init() {
+    }
+    
+    public convenience  init(key:String,target:String){
+        self.init()
+        self.key = key
+        self.targetString = target
+        self.targetClass =  FBClassFromString(string: target)
+        if self.targetClass is UIViewController.Type{
+            self.targetType = FBTargetType.FBTargetTypeController
+        }
     }
 }

@@ -12,11 +12,8 @@ import UIKit
 open class FBNavigator {
 	func fb_push(_ viewController:UIViewController, _ animated:Bool) -> UIViewController? {
 		
-		
+        
 		return viewController
 	}
-
-	
-	
 }
 
