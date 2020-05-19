@@ -10,7 +10,6 @@ import UIKit
 
 public extension UIViewController {
     func handleWithURLAction(_ urlAction:FBURLAction) ->Bool{
-        
         return true
     }
 	
