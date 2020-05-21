@@ -16,13 +16,10 @@ public class FBRouter:FBBaseRouter{
 	}
 	
 	
-	class func router() -> FBRouter {
+	public class func router() -> FBRouter {
 		return shareInstance
 	}
 	
-	
-    
-    
     
 	
 	

@@ -11,9 +11,6 @@ import UIKit
 
 extension UINavigationController{
     func inBlockMode() -> Bool {
-        guard self.presentedViewController != nil else {
-            return false
-        }
         return self.inAnimating;
     }
     

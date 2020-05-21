@@ -11,13 +11,16 @@ import UIKit
 
 public class FBBaseRouter:NSObject {
  
-    
+    //默认导航控制器类
+    var BaseNavgClass:UINavigationController.Type =  UINavigationController.self
+
 	var scheme:String
 	var urlMappings:Dictionary<String,FBURLTarget>
     var urlActionWaitingList:Array<FBURLAction>
 	var lock:NSLock
 	var animating: Bool
     var openSuccess:Bool = false
+    
     
 	public override init() {
 		self.animating = false
@@ -31,7 +34,10 @@ public class FBBaseRouter:NSObject {
 		self.scheme = scheme
 	}
     
-	func registURLMapping(urlmappings:Dictionary<String,String>)  {
+    
+    /// 注册路由
+    /// - Parameter urlmappings: urlmappings  <routerHost,className>
+	public func registURLMapping(urlmappings:Dictionary<String,String>)  {
 		lock.lock()
         defer {lock.unlock()}
 		for item in urlmappings{
@@ -99,13 +105,23 @@ public class FBBaseRouter:NSObject {
             return nil
         }
         
+        if urlAction.options.count == 0 || urlAction.options.contains(FBRouterOptions.push)  {
+            return push(urlAction, from: from)
+        }
+//        if urlAction.options == FBRouterOptions.present {
+//
+//        }
+
+        return nil
+    }
+    //push页面
+    func push(_ urlAction:FBURLAction,from:UIViewController) -> UIViewController? {
         //获取顶层控制器的导航栏
         guard let navigationContrller = from.navigationController ?? UIViewController.topController?.navigationController else {
             onMatchUnhandledURLAction(urlAction: urlAction)
             return nil
         }
-         
-        
+    
         guard let viewController = obtainTargetControllerCheckURLAction(urlAction,navigationController: navigationContrller) else {
             onMatchUnhandledURLAction(urlAction: urlAction)
             return nil
@@ -115,12 +131,22 @@ public class FBBaseRouter:NSObject {
             onMatchUnhandledURLAction(urlAction: urlAction)
             return nil
         }
+        if navigationController.inBlockMode() {
+            
+        }
         navigationController.pushViewController(viewController)
         onMatchViewController(viewController, urlAction: urlAction)
         openSuccess = true
         urlAction.from = from
         return viewController
     }
+    
+    //presentVC
+    func present(_ urlAction:FBURLAction,from:UIViewController) -> UIViewController? {
+        
+        return nil
+    }
+    
     
     
 	@discardableResult
@@ -205,8 +231,6 @@ public class FBBaseRouter:NSObject {
         return false
     }
     
-    
-
 }
 
 

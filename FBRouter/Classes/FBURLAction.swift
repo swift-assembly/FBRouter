@@ -9,24 +9,42 @@
 import UIKit
 
 public enum FBTargetType {
-	case FBTargetTypeController
-	case FBTargetTypeBridge
+	case controller
+	case bridge
 }
 
-public enum FBAnimationOptions {
-	case FBAnimationOptionsPush
-	case FBAnimationOptionsPresented
+public struct FBRouterOptions:OptionSet {
+    public init(rawValue: UInt) {
+        self.rawValue = rawValue
+    }
+    public let rawValue: UInt
+    static let push = FBRouterOptions(rawValue: 1 << 0)
+    static let present = FBRouterOptions(rawValue: 1 << 1)
+    static let wrap_nc = FBRouterOptions(rawValue: 1 << 2)
+    
+    
 }
 
-public typealias FBRCompleteBlock = (Bool)->Void
+//public enum FBRouterOptions {
+//	case push
+//    case present
+//    enum options {
+//        case normal   //只模态弹起视图
+//        case wrap_nc   //add UINavigationController
+//    }
+//}
+
+//public typealias FBRCompleteBlock = (Bool)->Void
 
 public class FBURLAction:NSObject {
+    
+    public var options:[FBRouterOptions] = [FBRouterOptions.push]
+     
 	public var animation:Bool = true
 	public var openExternal:Bool = false
 	public var isSingleton:Bool = false
     public weak var from:UIViewController?
-    
-    public var completeBlock:FBRCompleteBlock?
+    public var completeBlock:((Bool)->Void)? = nil
 	public var url:URL?
 	public var urlTarget:FBURLTarget?
 	func URLFromString(host:String) -> URL? {
@@ -57,7 +75,7 @@ public class FBURLAction:NSObject {
 		}
 	}
     
-    func setCompleteBlock(block:@escaping FBRCompleteBlock) {
+    func setCompleteBlock(_ block: ((Bool) -> Void)? = nil) {
         self.completeBlock = block
     }
 }
@@ -71,8 +89,6 @@ extension String {
     }
     
 }
-
-
 
 
 public class FBURLTarget:NSObject{
@@ -91,7 +107,7 @@ public class FBURLTarget:NSObject{
         self.targetString = target
         self.targetClass =  FBClassFromString(string: target)
         if self.targetClass is UIViewController.Type{
-            self.targetType = FBTargetType.FBTargetTypeController
+            self.targetType = FBTargetType.controller
         }
     }
 }
@@ -104,7 +120,6 @@ public func  FBClassFromString(string: String)-> AnyClass?{
     let stringName = FBRouterAppName! + "." + string
     return NSClassFromString(stringName)
 }
-
 
 
 extension UIViewController {
