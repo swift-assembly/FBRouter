@@ -49,6 +49,10 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
+    
+    func test()  {
+//        FBURLAction.init(url: "a").options = FBRouterOptions.present
+    }
 
 }
 
