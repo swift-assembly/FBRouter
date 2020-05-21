@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FBRouter
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		self.window!.backgroundColor = UIColor.white
 		self.window!.rootViewController = UINavigationController.init(rootViewController: ViewController())
 		self.window!.makeKeyAndVisible()
+        FBRSwizzleManager.shared()
 		return true
 	}
 	
