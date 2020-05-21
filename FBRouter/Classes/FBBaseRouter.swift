@@ -17,9 +17,8 @@ public class FBBaseRouter:NSObject {
     var urlActionWaitingList:Array<FBURLAction>
 	var lock:NSLock
 	var animating: Bool
-	
-	var mainNavigationContontroller:UINavigationController?
-	
+    var openSuccess:Bool = false
+    
 	public override init() {
 		self.animating = false
 		self.scheme = "fb"
@@ -28,24 +27,17 @@ public class FBBaseRouter:NSObject {
 		self.lock = NSLock.init()
 	}
 	
-	func setMainNavigationController(navigationController:UINavigationController)  {
-		self.mainNavigationContontroller = navigationController
-	}
-	
 	func setScheme(scheme:String)  {
 		self.scheme = scheme
 	}
     
-    func inBlockMode() -> Bool {
-        return false
-    }
-    
 	func registURLMapping(urlmappings:Dictionary<String,String>)  {
-		self.lock.lock()
+		lock.lock()
+        defer {lock.unlock()}
 		for item in urlmappings{
 			self.urlMappings[item.key] = FBURLTarget.init(key: item.key, target: item.value)
 		}
-		self.lock.unlock()
+		
 	}
 	@discardableResult
     func matchTargetWithURLAction(urlAction:FBURLAction) -> FBURLTarget? {
@@ -57,7 +49,8 @@ public class FBBaseRouter:NSObject {
     
     
 	@discardableResult
-	func obtainTargetControllerCheckURLAction(urlAction:FBURLAction) -> UIViewController? {
+    func obtainTargetControllerCheckURLAction(_ urlAction:FBURLAction,
+                                              navigationController:UINavigationController) -> UIViewController? {
         guard let targetClass = urlAction.urlTarget?.targetClass as? UIViewController.Type else {
             return nil
         }
@@ -66,83 +59,132 @@ public class FBBaseRouter:NSObject {
             isSingleton = true
         }
         if isSingleton {
-            return self.mainNavigationContontroller?.viewControllers.fb_match(
+            return navigationController.viewControllers.fb_match(
                 validate: { (item:UIViewController) -> Bool in
                 return item.isKind(of: targetClass)})
         }
-        
-        
-        
         return targetClass.init()
 	}
-    
-    
-	@discardableResult
-	public func openURLAction(urlAction:FBURLAction) -> UIViewController? {
-        var success :Bool = false
-        
+    @discardableResult
+    public func openURLAction(_ urlAction:FBURLAction,from:UIViewController) -> UIViewController? {
+        openSuccess = false
         defer {
-            callBack(urlAction: urlAction, success: success)
+            callBack(urlAction: urlAction, success: openSuccess)
+        }
+        //校验参数
+        
+        guard shouldOpenURLAction(urlAction: urlAction) else{
+            return nil
         }
         
-        if shouldOpenURLAction(urlAction: urlAction) == false{
-            return nil
-        }
-        if urlAction.openExternal || urlAction.url?.scheme != self.scheme{
-            if willOpenExternal(urlAction: urlAction) {
-               openExternal(urlAction: urlAction)
+        guard !urlAction.openExternal  else {
+            guard !willOpenExternal(urlAction: urlAction) else {
+                return nil
             }
+            openExternal(urlAction: urlAction, completionHandler:{
+                (success) in
+                self.didOpenExternal(urlAction: urlAction,success:success )
+                guard let complete = urlAction.completeBlock else{
+                    return
+                }
+                complete(success)
+            })
             return nil
         }
+
         urlAction.urlTarget = self.matchTargetWithURLAction(urlAction: urlAction)
         guard urlAction.urlTarget != nil else{
             onMatchUnhandledURLAction(urlAction: urlAction)
+            openSuccess = false
             return nil
         }
-        guard let viewController = obtainTargetControllerCheckURLAction(urlAction: urlAction) else {
+        
+        //获取顶层控制器的导航栏
+        guard let navigationContrller = from.navigationController ?? UIViewController.topController?.navigationController else {
             onMatchUnhandledURLAction(urlAction: urlAction)
             return nil
         }
-        onMatchViewController(viewController, urlAction: urlAction)
+         
         
-		return viewController
+        guard let viewController = obtainTargetControllerCheckURLAction(urlAction,navigationController: navigationContrller) else {
+            onMatchUnhandledURLAction(urlAction: urlAction)
+            return nil
+        }
+        
+        guard let navigationController = from.navigationController else {
+            onMatchUnhandledURLAction(urlAction: urlAction)
+            return nil
+        }
+        navigationController.pushViewController(viewController)
+        onMatchViewController(viewController, urlAction: urlAction)
+        openSuccess = true
+        urlAction.from = from
+        return viewController
+    }
+    
+    
+	@discardableResult
+	func openURLAction(urlAction:FBURLAction) -> UIViewController? {
+        
+        return nil
 	}
     
     
     
+    func callBack(urlAction:FBURLAction,success:Bool) {
+        guard let complete = urlAction.completeBlock else{
+            return
+        }
+        complete(success)
+    }
+    
 
 // MARK: -Methods
-    /// 打开之前判断是否可以打开
+    /// 校验urlAction 是否合规
     /// - Parameter urlAction: urlAction description
-    func shouldOpenURLAction(urlAction:FBURLAction) -> Bool {
+    @objc open func shouldOpenURLAction(urlAction:FBURLAction) -> Bool {
         
         return true
     }
     
     
-    /// 将要打开外链
+    /// 将要打开外链 可在此时校验是否让打开
     /// - Parameter urlAction: urlAction description
-    func willOpenExternal(urlAction:FBURLAction)->Bool {
+    @objc open func willOpenExternal(urlAction:FBURLAction)->Bool {
         return true
+    }
+    
+    @objc open func didOpenExternal(urlAction:FBURLAction,success:Bool) {
+        
     }
     
     /// 将要打开
     /// - Parameter urlAction: urlAction description
-    func willOpenURLAction(urlAction:FBURLAction)  {
+    @objc open func willOpenURLAction(urlAction:FBURLAction)  {
         
     }
     
     /// 匹配到不能打开的的URLAction,抛出
     /// - Parameter urlAction: urlAction description
-    func onMatchUnhandledURLAction(urlAction:FBURLAction) {
+    @objc open func onMatchUnhandledURLAction(urlAction:FBURLAction) {
         
     }
     
-    func onMatchViewController(_ controller:UIViewController,urlAction:FBURLAction)  {
+    
+    /// 打开了对应页面
+    /// - Parameters:
+    ///   - controller: 目标控制器
+    ///   - urlAction: urlAction
+    @objc open func onMatchViewController(_ controller:UIViewController,urlAction:FBURLAction)  {
         
     }
     
-    func openExternal(urlAction:FBURLAction) {
+    
+    /// 打开了外部链接
+    /// - Parameters:
+    ///   - urlAction: 参数
+    ///   - completion: 回调
+    @objc open func openExternal(urlAction:FBURLAction, completionHandler completion: ((Bool) -> Void)? = nil) {
         UIApplication.shared.open(urlAction.url!, options: [:], completionHandler:{
             (success) in
             guard let complete = urlAction.completeBlock else{
@@ -152,70 +194,19 @@ public class FBBaseRouter:NSObject {
         })
     }
     
-    func handleLoginAction(urlAction:FBURLAction,controller:UIViewController) -> Bool {
-        
+    
+    
+    /// Description 判断是否需要登录
+    /// - Parameters:
+    ///   - urlAction: urlAction description
+    ///   - controller: controller description
+    @objc open func handleLoginAction(urlAction:FBURLAction,controller:UIViewController) -> Bool {
+       
         return false
     }
     
     
-    func callBack(urlAction:FBURLAction,success:Bool) {
-        guard let complete = urlAction.completeBlock else{
-            return
-        }
-        complete(success)
-    }
+
 }
 
 
-
-
-//
-//extension UIViewController {
-//
-//	private class var sharedApplication: UIApplication? {
-//	  let selector = NSSelectorFromString("sharedApplication")
-//	  return UIApplication.perform(selector)?.takeUnretainedValue() as? UIApplication
-//	}
-//
-//	open class var topController:UIViewController?{
-//		guard let currentWindows = self.sharedApplication?.windows else {
-//			return nil
-//		}
-//		var rootVC:UIViewController?
-//		for window in currentWindows {
-//			if let windowRootVC = window.rootViewController, window.isKeyWindow{
-//				rootVC = windowRootVC
-//				break
-//			}
-//		}
-//		return self.autoGetTopController(of: rootVC)
-//	}
-//
-//	open class  func autoGetTopController(of ViewController:UIViewController?) -> UIViewController? {
-//		if let presentedVC = ViewController?.presentedViewController {
-//			return self.autoGetTopController(of: presentedVC)
-//		}
-//		if let tabBarController = ViewController as? UITabBarController,
-//			let selectVC = tabBarController.selectedViewController {
-//			return self.autoGetTopController(of: selectVC)
-//		}
-//
-//		if let navigationController = ViewController as? UINavigationController,
-//			let visibleVC = navigationController.visibleViewController{
-//			return self.autoGetTopController(of: visibleVC)
-//		}
-//		if let pageVC = ViewController as? UIPageViewController,
-//			pageVC.viewControllers?.count == 1{
-//			return self.autoGetTopController(of: pageVC.viewControllers?.first)
-//		}
-//
-//		return ViewController
-//	}
-//
-//
-////	func openURLHost(host:String) -> UIViewController? {
-////	}
-////
-//
-//
-//}

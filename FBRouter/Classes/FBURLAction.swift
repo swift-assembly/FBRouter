@@ -21,10 +21,11 @@ public enum FBAnimationOptions {
 public typealias FBRCompleteBlock = (Bool)->Void
 
 public class FBURLAction:NSObject {
-	public var animation:Bool = false
+	public var animation:Bool = true
 	public var openExternal:Bool = false
 	public var isSingleton:Bool = false
-	
+    public weak var from:UIViewController?
+    
     public var completeBlock:FBRCompleteBlock?
 	public var url:URL?
 	public var urlTarget:FBURLTarget?
@@ -104,3 +105,18 @@ public func  FBClassFromString(string: String)-> AnyClass?{
     return NSClassFromString(stringName)
 }
 
+
+
+extension UIViewController {
+    private struct AssociatedKey {
+        static var urlActionIdentifier: String = "urlActionIdentifier"
+    }
+    public var urlAction:FBURLAction{
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKey.urlActionIdentifier) as? FBURLAction ?? FBURLAction.init()
+        }
+        set {
+            objc_setAssociatedObject(self, &AssociatedKey.urlActionIdentifier, newValue, .OBJC_ASSOCIATION_RETAIN)
+        }
+    }
+}
