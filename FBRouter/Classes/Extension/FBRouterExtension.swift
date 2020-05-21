@@ -92,6 +92,7 @@ extension UINavigationController {
     }
     
     
+    
     @objc func fbr_pushViewController(_ viewController:UIViewController,
                                       animated:Bool = true){
         if !animated && !viewController.urlAction.animation{
@@ -119,6 +120,7 @@ extension UINavigationController {
 
 
 extension UIViewController {
+    
     
     
 }

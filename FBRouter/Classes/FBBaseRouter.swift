@@ -64,10 +64,14 @@ public class FBBaseRouter:NSObject {
         if targetClass.isSingleton(urlAction) {
             isSingleton = true
         }
-        if isSingleton {
-            return navigationController.viewControllers.fb_match(
-                validate: { (item:UIViewController) -> Bool in
-                return item.isKind(of: targetClass)})
+        if isSingleton  {
+            let viewController = navigationController.viewControllers.fb_match(
+            validate: { (item:UIViewController) -> Bool in
+                return item.isKind(of: targetClass)
+            })
+            if viewController != nil {
+                return viewController
+            }
         }
         let viewController = targetClass.init()
         viewController.setURLAction(urlAction: urlAction)
@@ -145,7 +149,11 @@ public class FBBaseRouter:NSObject {
     
     //presentVC
     func present(_ urlAction:FBURLAction,from:UIViewController) -> UIViewController? {
-        
+        //获取顶层控制器的导航栏
+        guard let viewController = from.navigationController ?? UIViewController.topController?.navigationController else {
+          onMatchUnhandledURLAction(urlAction: urlAction)
+          return nil
+        }
         
         
         return nil

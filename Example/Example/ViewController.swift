@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     override class func isSingleton(_ urlAction: FBURLAction) -> Bool {
         return false
     }
+    var pageType:Int = 0
     
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -37,15 +38,21 @@ class ViewController: UIViewController {
     }
     
     @objc func buttonAction(_ sender:UIButton) {
-        self.navigationController?.pushViewController(ViewController.init(), animated: true)
-//        self.navigationController?.pushViewController(ViewController(), completion: {
-//            () in
-//        })
-        self.dismiss(animated: true) {
-            ()in
-            
-        }
+//        self.navigationController?.pushViewController(ViewController.init(), animated: true)
+////        self.navigationController?.pushViewController(ViewController(), completion: {
+////            () in
+////        })
+//        self.dismiss(animated: true) {
+//            ()in
+//
+//        }
+        self.pageType = Int(arc4random() % 8)
+        let vc = ViewController()
+//        vc.modalPresentationStyle = UIModalPresentationStyle.init(rawValue: self.pageType) ?? UIModalPresentationStyle.fullScreen;
+       
+        self.present(vc, animated: true, completion: nil)
     }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
