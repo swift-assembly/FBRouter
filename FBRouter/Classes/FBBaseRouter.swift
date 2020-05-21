@@ -13,10 +13,11 @@ public class FBBaseRouter:NSObject {
  
     //默认导航控制器类
     var BaseNavgClass:UINavigationController.Type =  UINavigationController.self
-
+    var currentNavigationController:UINavigationController?
 	var scheme:String
 	var urlMappings:Dictionary<String,FBURLTarget>
     var urlActionWaitingList:Array<FBURLAction>
+    var checkBlockTimer:Timer?
 	var lock:NSLock
 	var animating: Bool
     var openSuccess:Bool = false
@@ -34,6 +35,9 @@ public class FBBaseRouter:NSObject {
 		self.scheme = scheme
 	}
     
+    func inBlockMode() -> Bool {
+        return self.currentNavigationController?.inAnimating ?? false
+    }
     
     /// 注册路由
     /// - Parameter urlmappings: urlmappings  <routerHost,className>
@@ -78,8 +82,9 @@ public class FBBaseRouter:NSObject {
         return viewController
 	}
     @discardableResult
-    public func openURLAction(_ urlAction:FBURLAction,from:UIViewController) -> UIViewController? {
+    public func openURLAction(_ urlAction:FBURLAction,from:UIViewController?) -> UIViewController? {
         openSuccess = false
+        urlAction.from = from
         defer {
             callBack(urlAction: urlAction, success: openSuccess)
         }
@@ -119,14 +124,14 @@ public class FBBaseRouter:NSObject {
         guard (viewController != nil) else{
             return nil
         }
+        onMatchViewController(viewController!, urlAction: urlAction)
         openSuccess = true
         return viewController
     }
     //push页面
-    func push(_ urlAction:FBURLAction,from:UIViewController) -> UIViewController? {
-       
+    func push(_ urlAction:FBURLAction,from:UIViewController?) -> UIViewController? {
         //获取顶层控制器的导航栏
-        guard let navigationContrller = from.navigationController ?? UIViewController.topController?.navigationController else {
+        guard let navigationContrller = from?.navigationController ?? UIViewController.topController?.navigationController else {
             onMatchUnhandledURLAction(urlAction: urlAction)
             return nil
         }
@@ -136,24 +141,23 @@ public class FBBaseRouter:NSObject {
             return nil
         }
         
-        guard let navigationController = from.navigationController else {
+        guard let navigationController = from?.navigationController else {
             onMatchUnhandledURLAction(urlAction: urlAction)
             return nil
         }
         if navigationController.inBlockMode() {
-            
+            self.urlActionWaitingList.append(urlAction)
+            self.startTimer()
+            return viewController
         }
         navigationController.pushViewController(viewController)
-        onMatchViewController(viewController, urlAction: urlAction)
-        openSuccess = true
-        urlAction.from = from
         return viewController
     }
     
     //presentVC
-    func present(_ urlAction:FBURLAction,from:UIViewController) -> UIViewController? {
+    func present(_ urlAction:FBURLAction,from:UIViewController?) -> UIViewController? {
         //获取顶层控制器的导航栏
-        guard let currentViewController = from.navigationController ?? UIViewController.topController else {
+        guard let currentViewController = from ?? UIViewController.topController else {
           onMatchUnhandledURLAction(urlAction: urlAction)
           return nil
         }
@@ -162,13 +166,36 @@ public class FBBaseRouter:NSObject {
             return nil
         }
         if urlAction.options.contains(FBRouterOptions.wrap_nc) {
-            from.present(UINavigationController.init(rootViewController: viewController), animated: urlAction.animation)
+            currentViewController.present(UINavigationController.init(rootViewController: viewController), animated: urlAction.animation)
         }else{
-            from.present(viewController, animated: urlAction.animation)
+            currentViewController.present(viewController, animated: urlAction.animation)
         }
         return viewController
     }
     
+    
+    @objc func checkTimerBlockModeDismiss() {
+        
+    }
+    
+    func flush()  {
+        while urlActionWaitingList.count > 0 {
+            if self.inBlockMode(){
+                self.startTimer()
+                return;
+            }
+            let urlAction = urlActionWaitingList.first!
+            urlActionWaitingList.removeFirst()
+            openURLAction(urlAction,from: urlAction.from ?? nil)
+        }
+       
+    }
+    
+    func startTimer() {
+        if(checkBlockTimer == nil){
+            checkBlockTimer = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(checkTimerBlockModeDismiss), userInfo: nil, repeats: true)
+        }
+    }
     
     
 	@discardableResult
