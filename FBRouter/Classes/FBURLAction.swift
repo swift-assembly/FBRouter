@@ -22,6 +22,8 @@ public struct FBRouterOptions:OptionSet {
     static let present = FBRouterOptions(rawValue: 1 << 1)
     static let wrap_nc = FBRouterOptions(rawValue: 1 << 2)
     
+    
+    
 }
 
 
