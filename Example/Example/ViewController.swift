@@ -40,6 +40,10 @@ class ViewController: UIViewController {
 //        self.navigationController?.pushViewController(ViewController(), completion: {
 //            () in
 //        })
+        self.dismiss(animated: true) {
+            ()in
+            
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
