@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+cd ..
 
 info() {
      local green="\033[1;32m"
