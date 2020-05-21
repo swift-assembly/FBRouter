@@ -9,9 +9,3 @@
 import UIKit
 
 
-extension UINavigationController{
-    func inBlockMode() -> Bool {
-        return self.inAnimating;
-    }
-    
-}

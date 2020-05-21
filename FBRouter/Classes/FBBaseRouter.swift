@@ -69,7 +69,9 @@ public class FBBaseRouter:NSObject {
                 validate: { (item:UIViewController) -> Bool in
                 return item.isKind(of: targetClass)})
         }
-        return targetClass.init()
+        let viewController = targetClass.init()
+        viewController.setURLAction(urlAction: urlAction)
+        return viewController
 	}
     @discardableResult
     public func openURLAction(_ urlAction:FBURLAction,from:UIViewController) -> UIViewController? {
@@ -108,10 +110,10 @@ public class FBBaseRouter:NSObject {
         if urlAction.options.count == 0 || urlAction.options.contains(FBRouterOptions.push)  {
             return push(urlAction, from: from)
         }
-//        if urlAction.options == FBRouterOptions.present {
-//
-//        }
-
+        if urlAction.options.contains(FBRouterOptions.present) {
+            return self.present(urlAction, from: from)
+        }
+        
         return nil
     }
     //push页面
@@ -143,6 +145,8 @@ public class FBBaseRouter:NSObject {
     
     //presentVC
     func present(_ urlAction:FBURLAction,from:UIViewController) -> UIViewController? {
+        
+        
         
         return nil
     }

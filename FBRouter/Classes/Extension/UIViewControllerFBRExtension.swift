@@ -10,6 +10,7 @@ import UIKit
 
 
 extension UIViewController {
+    
     @objc open func handleWithURLAction(_ urlAction:FBURLAction) ->Bool{
         return true
     }
@@ -17,7 +18,6 @@ extension UIViewController {
     @objc open class func needsLogin(_ urlAction:FBURLAction) ->Bool{
         return false
     }
-
     
     /// 栈内单例唯一：只在当前所处导航控制器的栈内单例
     /// - Parameter urlAction:
@@ -31,6 +31,8 @@ extension UIViewController {
 
 extension UIViewController {
 
+    
+    
     private class var sharedApplication: UIApplication? {
       let selector = NSSelectorFromString("sharedApplication")
       return UIApplication.perform(selector)?.takeUnretainedValue() as? UIApplication

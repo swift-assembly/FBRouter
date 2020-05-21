@@ -46,6 +46,10 @@ public class FBRSwizzleManager:NSObject {
 
 // MARK - Extension
 extension UINavigationController {
+
+    func inBlockMode() -> Bool {
+        return self.inAnimating;
+    }
     
     private struct AssociatedKey {
         static var inAnimatingIdentifier: String = "inAnimatingIdentifier"

@@ -26,6 +26,7 @@ class ViewController: UIViewController {
     
 	override func viewDidLoad() {
 		super.viewDidLoad()
+        
         self.view.backgroundColor = UIColor.white
         let button:UIButton = UIButton.init(type: UIButton.ButtonType.custom)
         button.setTitle("test", for: UIControl.State.normal)

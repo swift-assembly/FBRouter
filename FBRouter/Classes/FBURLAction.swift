@@ -22,19 +22,8 @@ public struct FBRouterOptions:OptionSet {
     static let present = FBRouterOptions(rawValue: 1 << 1)
     static let wrap_nc = FBRouterOptions(rawValue: 1 << 2)
     
-    
 }
 
-//public enum FBRouterOptions {
-//	case push
-//    case present
-//    enum options {
-//        case normal   //只模态弹起视图
-//        case wrap_nc   //add UINavigationController
-//    }
-//}
-
-//public typealias FBRCompleteBlock = (Bool)->Void
 
 public class FBURLAction:NSObject {
     
@@ -122,11 +111,11 @@ public func  FBClassFromString(string: String)-> AnyClass?{
 }
 
 
-extension UIViewController {
+public extension UIViewController {
     private struct AssociatedKey {
         static var urlActionIdentifier: String = "urlActionIdentifier"
     }
-    public var urlAction:FBURLAction{
+    var urlAction:FBURLAction{
         get {
             return objc_getAssociatedObject(self, &AssociatedKey.urlActionIdentifier) as? FBURLAction ?? FBURLAction.init()
         }
@@ -134,4 +123,14 @@ extension UIViewController {
             objc_setAssociatedObject(self, &AssociatedKey.urlActionIdentifier, newValue, .OBJC_ASSOCIATION_RETAIN)
         }
     }
+    
+    func setURLAction(urlAction:FBURLAction) {
+        self.urlAction = urlAction
+    }
+    
+    convenience init(urlAction:FBURLAction) {
+        self.init()
+        self.urlAction = urlAction
+    }
+    
 }
