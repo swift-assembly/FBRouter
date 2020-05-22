@@ -10,12 +10,15 @@ import UIKit
 
 
 public class FBBaseRouter:NSObject {
- 
+
     //默认导航控制器类
-    var BaseNavgClass:UINavigationController.Type =  UINavigationController.self
-    var currentNavigationController:UINavigationController?
+    public var urlMappings:Dictionary<String,FBURLTarget>
+    public var BaseNavgClass:UINavigationController.Type =  UINavigationController.self
+    public var currentNavigationController:UINavigationController?
+    
+    var timerDuration:TimeInterval = 0.40
+    
 	var scheme:String
-	var urlMappings:Dictionary<String,FBURLTarget>
     var urlActionWaitingList:Array<FBURLAction>
     var checkBlockTimer:Timer?
 	var lock:NSLock
@@ -175,14 +178,21 @@ public class FBBaseRouter:NSObject {
     
     
     @objc func checkTimerBlockModeDismiss() {
-        
+        if urlActionWaitingList.count  == 0{
+            self.stopTimer()
+            return
+        }
+        if !self.inBlockMode() {
+            self.stopTimer()
+            self.flush()
+        }
     }
     
     func flush()  {
         while urlActionWaitingList.count > 0 {
             if self.inBlockMode(){
                 self.startTimer()
-                return;
+                return
             }
             let urlAction = urlActionWaitingList.first!
             urlActionWaitingList.removeFirst()
@@ -196,16 +206,19 @@ public class FBBaseRouter:NSObject {
             checkBlockTimer = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(checkTimerBlockModeDismiss), userInfo: nil, repeats: true)
         }
     }
+    func stopTimer()  {
+        if checkBlockTimer != nil{
+            checkBlockTimer?.invalidate()
+            checkBlockTimer = nil
+        }
+    }
     
     
 	@discardableResult
 	func openURLAction(urlAction:FBURLAction) -> UIViewController? {
-        
         return nil
 	}
-    
-    
-    
+
     func callBack(urlAction:FBURLAction,success:Bool) {
         guard let complete = urlAction.completeBlock else{
             return

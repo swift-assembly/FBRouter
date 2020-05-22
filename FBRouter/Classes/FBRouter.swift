@@ -14,14 +14,12 @@ public class FBRouter:FBBaseRouter{
 		super.init()
 		scheme = "fb"
 	}
-	
-	
+
+    
 	public class func router() -> FBRouter {
 		return shareInstance
 	}
 	
     
-	
-	
 	
 }

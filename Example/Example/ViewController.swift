@@ -13,15 +13,15 @@ import FBExtension
 class ViewController: UIViewController {
 
     override func handleWithURLAction(_ urlAction: FBURLAction) -> Bool {
-        return true
+        return super.handleWithURLAction(urlAction)
     }
     
     override class func needsLogin(_ urlAction: FBURLAction) -> Bool {
-        return false
+        return super.needsLogin(urlAction)
     }
     
     override class func isSingleton(_ urlAction: FBURLAction) -> Bool {
-        return false
+        return super.isSingleton(urlAction)
     }
     var pageType:Int = 0
     

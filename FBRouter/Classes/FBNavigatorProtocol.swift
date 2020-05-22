@@ -8,10 +8,3 @@
 
 import Foundation
 
-public protocol FBRouterControllerProtocol:AnyObject {
-    static func isSingleton() -> Bool
-    static func needsLogin(urlAction:FBURLAction) -> Bool
-    func handleWithURLAction(urlAction:FBURLAction) ->Bool
-    
-}
-
