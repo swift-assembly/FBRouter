@@ -80,8 +80,8 @@ public class FBBaseRouter:NSObject {
             }
         }
         let viewController = targetClass.init()
-        if !viewController.handleWithURLAction(urlAction) {return nil}
         viewController.setURLAction(urlAction: urlAction)
+        if !viewController.handleWithURLAction(urlAction) {return nil}
         return viewController
 	}
     @discardableResult
@@ -177,7 +177,7 @@ public class FBBaseRouter:NSObject {
                 return vc == viewController
             }
         }
-        navigationController.pushViewController(viewController)
+        navigationController.pushViewController(viewController, animated: urlAction.animation)
     }
     
     

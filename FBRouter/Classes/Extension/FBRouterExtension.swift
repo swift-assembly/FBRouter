@@ -81,7 +81,7 @@ extension UINavigationController {
     
     @objc func fbr_pushViewController(_ viewController:UIViewController,
                                       animated:Bool = true){
-        if !animated && !viewController.urlAction.animation{
+        if !animated && !(viewController.urlAction?.animation ?? false){
             fbr_pushViewController(viewController, animated: animated)
             self.inAnimating = false
             return

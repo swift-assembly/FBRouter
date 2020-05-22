@@ -135,16 +135,17 @@ public func  FBClassFromString(string: String)-> AnyClass?{
 }
 
 
-public extension UIViewController {
+
+extension UIViewController {
     private struct AssociatedKey {
         static var urlActionIdentifier: String = "urlActionIdentifier"
     }
-    var urlAction:FBURLAction{
+    public var urlAction:FBURLAction?{
         get {
-            return objc_getAssociatedObject(self, &AssociatedKey.urlActionIdentifier) as? FBURLAction ?? FBURLAction.init()
+            return objc_getAssociatedObject(self, &AssociatedKey.urlActionIdentifier) as? FBURLAction
         }
         set {
-            objc_setAssociatedObject(self, &AssociatedKey.urlActionIdentifier, newValue, .OBJC_ASSOCIATION_RETAIN)
+            objc_setAssociatedObject(self, &AssociatedKey.urlActionIdentifier, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
