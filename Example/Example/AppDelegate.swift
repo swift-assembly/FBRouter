@@ -21,7 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		self.window!.backgroundColor = UIColor.white
         self.window!.rootViewController = UINavigationController.init(rootViewController: ViewController.init())
 		self.window!.makeKeyAndVisible()
-        FBRSwizzleManager.shared()
+        
+        let urlMappings = ["vc00":"ViewController","vc01":"ViewController01"]
+        FBRouter.router().registURLMapping(urlmappings: urlMappings)
+        
 		return true
 	}
 	

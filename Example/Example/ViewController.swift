@@ -13,6 +13,7 @@ import FBExtension
 class ViewController: UIViewController {
 
     override func handleWithURLAction(_ urlAction: FBURLAction) -> Bool {
+        
         return super.handleWithURLAction(urlAction)
     }
     
@@ -27,6 +28,7 @@ class ViewController: UIViewController {
     
 	override func viewDidLoad() {
 		super.viewDidLoad()
+        self.navigationItem.title = "00"
         self.view.backgroundColor = UIColor.white
         let button:UIButton = UIButton.init(type: UIButton.ButtonType.custom)
         button.setTitle("test", for: UIControl.State.normal)
@@ -34,23 +36,11 @@ class ViewController: UIViewController {
         button.frame = CGRect.init(x: 100, y: 100, width: 100, height: 30)
         self.view.addSubview(button)
         button.addTarget(self, action: #selector(buttonAction(_:)), for: UIControl.Event.touchUpInside)
-//        FBRouter.router().o
+
     }
     
     @objc func buttonAction(_ sender:UIButton) {
-//        self.navigationController?.pushViewController(ViewController.init(), animated: true)
-////        self.navigationController?.pushViewController(ViewController(), completion: {
-////            () in
-////        })
-//        self.dismiss(animated: true) {
-//            ()in
-//
-//        }
-        self.pageType = Int(arc4random() % 8)
-        let vc = ViewController()
-//        vc.modalPresentationStyle = UIModalPresentationStyle.init(rawValue: self.pageType) ?? UIModalPresentationStyle.fullScreen;
-       
-        self.present(vc, animated: true, completion: nil)
+        FBRouter.router().openURLAction(FBURLAction.init(host: "vc00"),from: self)
     }
     
     

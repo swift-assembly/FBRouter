@@ -26,21 +26,7 @@ extension  NSObject {
     }
 }
 
-public class FBRSwizzleManager:NSObject {
-    private static let shareManager:FBRSwizzleManager = {
-        let shared = FBRSwizzleManager.init()
-        return shared
-    }()
-    
-    private override init(){
-        UINavigationController.initializeMethod()
-    }
-    
-    @discardableResult
-    public class func shared() -> FBRSwizzleManager{
-        return shareManager
-    }
-}
+
 
 
 
@@ -119,12 +105,21 @@ extension UINavigationController {
 }
 
 
-extension UIViewController {
+class FBRSwizzleManager:NSObject {
+    private static let shareManager:FBRSwizzleManager = {
+        let shared = FBRSwizzleManager.init()
+        return shared
+    }()
     
+    private override init(){
+        UINavigationController.initializeMethod()
+    }
     
-    
+    @discardableResult
+    public class func shared() -> FBRSwizzleManager{
+        return shareManager
+    }
 }
-
 
 
 

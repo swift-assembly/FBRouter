@@ -12,6 +12,7 @@ public class FBRouter:FBBaseRouter{
 	private static let shareInstance = FBRouter()
 	private override init() {
 		super.init()
+        FBRSwizzleManager.shared()
 		scheme = "fb"
 	}
     

@@ -80,9 +80,8 @@ public class FBBaseRouter:NSObject {
             }
         }
         let viewController = targetClass.init()
+        if !viewController.handleWithURLAction(urlAction) {return nil}
         viewController.setURLAction(urlAction: urlAction)
-       
-        
         return viewController
 	}
     @discardableResult
@@ -113,7 +112,7 @@ public class FBBaseRouter:NSObject {
         }
 
         urlAction.urlTarget = self.matchTargetWithURLAction(urlAction: urlAction)
-        guard urlAction.urlTarget?.targetType != FBTargetType.controller else{
+        guard urlAction.urlTarget?.targetType == FBTargetType.controller else{
             onMatchUnhandledURLAction(urlAction: urlAction)
             return nil
         }
@@ -124,9 +123,6 @@ public class FBBaseRouter:NSObject {
             viewController = present(urlAction, from: from)
         }
         guard (viewController != nil) else{
-            return nil
-        }
-        if viewController!.handleWithURLAction(urlAction) {
             return nil
         }
         onMatchViewController(viewController!, urlAction: urlAction)
@@ -162,16 +158,26 @@ public class FBBaseRouter:NSObject {
             self.startTimer()
             return viewController
         }
-        navigationController.pushViewController(viewController)
+        push(urlAction: urlAction, viewController: viewController, navigationController: navigationController)
         return viewController
     }
     
-    func openViewController(urlAction:FBURLAction,viewController:UIViewController) {
+    func push(urlAction:FBURLAction,
+              viewController:UIViewController,
+              navigationController:UINavigationController) {
         var isSingleton = urlAction.isSingleton
         if !isSingleton {
             isSingleton = urlAction.urlTarget?.targetClass!.isSingleton(urlAction) ?? false
         }
-        
+        if isSingleton && navigationController.viewControllers.contains(viewController){
+            if viewController == navigationController.viewControllers.last {
+                return;
+            }
+            navigationController.viewControllers.removeAll { (vc) -> Bool in
+                return vc == viewController
+            }
+        }
+        navigationController.pushViewController(viewController)
     }
     
     
