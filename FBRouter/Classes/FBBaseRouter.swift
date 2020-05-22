@@ -9,13 +9,15 @@
 import UIKit
 
 
-public class FBBaseRouter:NSObject {
+open class FBBaseRouter:NSObject {
 
     //默认导航控制器类
     public var urlMappings:Dictionary<String,FBURLTarget>
-    public var BaseNavgClass:UINavigationController.Type =  UINavigationController.self
     public var currentNavigationController:UINavigationController?
+    open weak var deleage:FBRouterDelegate?
     
+    
+    var wrapNavgClass:UINavigationController.Type =  UINavigationController.self
     var timerDuration:TimeInterval = 0.40
     
 	var scheme:String
@@ -62,7 +64,7 @@ public class FBBaseRouter:NSObject {
     
 	@discardableResult
     func obtainTargetControllerCheckURLAction(_ urlAction:FBURLAction,
-                                              navigationController:UINavigationController?) -> UIViewController? {
+                    navigationController:UINavigationController?) -> UIViewController? {
         guard let targetClass = urlAction.urlTarget?.targetClass as? UIViewController.Type else {
             return nil
         }
@@ -169,6 +171,7 @@ public class FBBaseRouter:NSObject {
         if !isSingleton {
             isSingleton = urlAction.urlTarget?.targetClass!.isSingleton(urlAction) ?? false
         }
+//        #warning("todo") //栈内存在单例如何处理
         if isSingleton && navigationController.viewControllers.contains(viewController){
             if viewController == navigationController.viewControllers.last {
                 return;
@@ -194,7 +197,7 @@ public class FBBaseRouter:NSObject {
             return nil
         }
         if urlAction.options.contains(FBRouterOptions.wrap_nc) {
-            currentViewController.present(UINavigationController.init(rootViewController: viewController), animated: urlAction.animation)
+            currentViewController.present(wrapNavgClass.init(rootViewController: viewController), animated: urlAction.animation)
         }else{
             currentViewController.present(viewController, animated: urlAction.animation)
         }
@@ -253,7 +256,9 @@ public class FBBaseRouter:NSObject {
     /// 校验urlAction 是否合规
     /// - Parameter urlAction: urlAction description
     @objc open func shouldOpenURLAction(urlAction:FBURLAction) -> Bool {
-        
+        guard self.deleage?.shouldOpenURLAction(urlAction) != false else {
+            return false
+        }
         return true
     }
     
@@ -261,23 +266,26 @@ public class FBBaseRouter:NSObject {
     /// 将要打开外链 可在此时校验是否让打开
     /// - Parameter urlAction: urlAction description
     @objc open func willOpenExternal(urlAction:FBURLAction)->Bool {
+        guard self.deleage?.willOpenExternal(urlAction) != false else {
+            return false
+        }
         return true
     }
     
     @objc open func didOpenExternal(urlAction:FBURLAction,success:Bool) {
-        
+        self.deleage?.didOpenExternal(urlAction, success:success)
     }
     
     /// 将要打开
     /// - Parameter urlAction: urlAction description
     @objc open func willOpenURLAction(urlAction:FBURLAction)  {
-        
+        self.deleage?.willOpenURLAction(urlAction)
     }
     
     /// 匹配到不能打开的的URLAction,抛出
     /// - Parameter urlAction: urlAction description
     @objc open func onMatchUnhandledURLAction(urlAction:FBURLAction) {
-        
+        self.deleage?.onMatchUnhandledURLAction(urlAction)
     }
     
     
@@ -286,7 +294,7 @@ public class FBBaseRouter:NSObject {
     ///   - controller: 目标控制器
     ///   - urlAction: urlAction
     @objc open func onMatchViewController(_ controller:UIViewController,urlAction:FBURLAction)  {
-        
+        self.deleage?.onMatchViewController(controller, urlAction: urlAction)
     }
     
     
@@ -295,6 +303,10 @@ public class FBBaseRouter:NSObject {
     ///   - urlAction: 参数
     ///   - completion: 回调
     @objc open func openExternal(urlAction:FBURLAction, completionHandler completion: ((Bool) -> Void)? = nil) {
+        guard (self.deleage?.openExternal(urlAction, completionHandler: completion)) != nil else{
+            return
+        }
+        
         UIApplication.shared.open(urlAction.url!, options: [:], completionHandler:{
             (success) in
             guard let complete = urlAction.completeBlock else{
@@ -311,7 +323,9 @@ public class FBBaseRouter:NSObject {
     ///   - urlAction: urlAction description
     ///   - controller: controller description
     @objc open func handleLoginAction(urlAction:FBURLAction,controller:UIViewController) -> Bool {
-       
+        guard self.deleage?.handleLoginAction(urlAction, controller: controller) == false else{
+            return true
+        }
         return false
     }
     
