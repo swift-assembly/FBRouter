@@ -22,26 +22,25 @@ public struct FBRouterOptions:OptionSet {
     static let push = FBRouterOptions(rawValue: 1 << 0)
     static let present = FBRouterOptions(rawValue: 1 << 1)
     static let wrap_nc = FBRouterOptions(rawValue: 1 << 2)
-    
-    
-    
+
 }
 
+func URLFromString(host:String) -> URL {
+    return  URL.init(string: FBRouter.router().scheme + "://" + host)!
+}
 
 public class FBURLAction:NSObject {
     
     public var options:[FBRouterOptions] = [FBRouterOptions.push]
-     
+    public private(set) var params:Dictionary<String, Any> = [:]
 	public var animation:Bool = true
 	public var openExternal:Bool = false
 	public var isSingleton:Bool = false
     public weak var from:UIViewController?
     public var completeBlock:((Bool)->Void)? = nil
-	public var url:URL?
+    public var url:URL?
 	public var urlTarget:FBURLTarget?
-	func URLFromString(host:String) -> URL? {
-		return  URL.init(string: FBRouter.router().scheme + "://" + host)
-	}
+	
 	
 	override init() {
 		super.init()
@@ -50,31 +49,48 @@ public class FBURLAction:NSObject {
     public convenience init(url:URL){
         self.init()
         self.url = url
+        guard let para = url.queryParameters else {
+            return
+        }
+        for item in para {
+            params[item.key.lowercased()] = item.value
+        }
     }
     
     public convenience init(urlString:String) {
-        self.init()
-        self.url =  URL.init(string: urlString)
+        let url = URL.init(string: urlString) ?? URLFromString(host: "")
+        self.init(url:url)
     }
     
 	public convenience init(host:String) {
-		self.init()
-		self.url = URLFromString(host: host)
+        self.init(url:URLFromString(host: host))
 	}
-	
     
 	public convenience init(httpUrl:String?) {
-		self.init()
-		self.url = URLFromString(host: "web")
+		var url = URLFromString(host: "web")
 		if httpUrl?.isBlank == false{
-			self.url = self.url?.appendingQueryParameters(["url" : httpUrl!])
+            url = url.appendingQueryParameters(["url" : httpUrl!])
 		}
+        self.init(url:url)
 	}
     
     func setCompleteBlock(_ block: ((Bool) -> Void)? = nil) {
         self.completeBlock = block
     }
+    
 }
+
+
+public extension FBURLAction{
+    
+    
+    
+    
+}
+
+
+
+
 
 
 

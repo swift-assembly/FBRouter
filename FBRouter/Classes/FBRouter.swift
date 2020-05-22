@@ -20,7 +20,6 @@ public class FBRouter:FBBaseRouter{
         self.scheme = scheme
     }
     
-    
 	public class func router() -> FBRouter {
 		return shareInstance
 	}
@@ -35,6 +34,13 @@ public class FBRouter:FBBaseRouter{
         return openURLAction(FBURLAction.init(httpUrl: httpUrl), from: from)
     }
     
+    public func openHost(host:String,from:UIViewController) -> UIViewController? {
+        return openURLAction(FBURLAction.init(host: host),from: from)
+    }
+    
+    public func openHost(host:String) -> UIViewController? {
+        return openURLAction(FBURLAction.init(host: host))
+    }
     public func openURL(url:URL) -> UIViewController? {
         return openURLAction(FBURLAction.init(url: url))
     }
@@ -44,6 +50,7 @@ public class FBRouter:FBBaseRouter{
     public func openHttpURLString(httpUrl:String) -> UIViewController? {
         return openURLAction(FBURLAction.init(httpUrl: httpUrl))
     }
+    
    
 }
 

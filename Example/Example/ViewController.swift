@@ -40,7 +40,9 @@ class ViewController: UIViewController {
     }
     
     @objc func buttonAction(_ sender:UIButton) {
-        FBRouter.router().openURLAction(FBURLAction.init(host: "vc00"),from: self)
+        let urlAction = FBURLAction.init(host: "vc00?a=b")
+        print(urlAction.params)
+        FBRouter.router().openURLAction(urlAction,from: self)
     }
     
     
