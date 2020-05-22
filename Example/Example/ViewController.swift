@@ -27,7 +27,6 @@ class ViewController: UIViewController {
     
 	override func viewDidLoad() {
 		super.viewDidLoad()
-        
         self.view.backgroundColor = UIColor.white
         let button:UIButton = UIButton.init(type: UIButton.ButtonType.custom)
         button.setTitle("test", for: UIControl.State.normal)
@@ -35,6 +34,7 @@ class ViewController: UIViewController {
         button.frame = CGRect.init(x: 100, y: 100, width: 100, height: 30)
         self.view.addSubview(button)
         button.addTarget(self, action: #selector(buttonAction(_:)), for: UIControl.Event.touchUpInside)
+//        FBRouter.router().o
     }
     
     @objc func buttonAction(_ sender:UIButton) {

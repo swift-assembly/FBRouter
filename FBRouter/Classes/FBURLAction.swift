@@ -9,6 +9,7 @@
 import UIKit
 
 public enum FBTargetType {
+    case undefined
 	case controller
 	case bridge
 }
@@ -45,19 +46,23 @@ public class FBURLAction:NSObject {
 	override init() {
 		super.init()
 	}
-	
     
-
+    public convenience init(url:URL){
+        self.init()
+        self.url = url
+    }
+    
+    public convenience init(urlString:String) {
+        self.init()
+        self.url =  URL.init(string: urlString)
+    }
+    
 	public convenience init(host:String) {
 		self.init()
 		self.url = URLFromString(host: host)
 	}
 	
-	public convenience init(url:String) {
-		self.init()
-		self.url =  URL.init(string: url)
-	}
-	
+    
 	public convenience init(httpUrl:String?) {
 		self.init()
 		self.url = URLFromString(host: "web")
@@ -86,10 +91,11 @@ public class FBURLTarget:NSObject{
     var    key:String?
     var    targetString:String?
     var    targetClass:AnyClass?
-    var    targetType:FBTargetType?
+    var    targetType:FBTargetType
     
     
     public override init() {
+        self.targetType = FBTargetType.undefined
     }
     
     public convenience  init(key:String,target:String){

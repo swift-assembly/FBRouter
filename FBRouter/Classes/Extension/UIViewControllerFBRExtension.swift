@@ -11,6 +11,7 @@ import UIKit
 
 extension UIViewController {
     
+    @discardableResult
     @objc open func handleWithURLAction(_ urlAction:FBURLAction) ->Bool{
         return true
     }
@@ -31,8 +32,6 @@ extension UIViewController {
 
 extension UIViewController {
 
-    
-    
     private class var sharedApplication: UIApplication? {
       let selector = NSSelectorFromString("sharedApplication")
       return UIApplication.perform(selector)?.takeUnretainedValue() as? UIApplication

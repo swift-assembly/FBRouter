@@ -60,7 +60,6 @@ public class FBBaseRouter:NSObject {
         return self.urlMappings[host]
     }
     
-    
 	@discardableResult
     func obtainTargetControllerCheckURLAction(_ urlAction:FBURLAction,
                                               navigationController:UINavigationController?) -> UIViewController? {
@@ -82,6 +81,8 @@ public class FBBaseRouter:NSObject {
         }
         let viewController = targetClass.init()
         viewController.setURLAction(urlAction: urlAction)
+       
+        
         return viewController
 	}
     @discardableResult
@@ -92,7 +93,6 @@ public class FBBaseRouter:NSObject {
             callBack(urlAction: urlAction, success: openSuccess)
         }
         //校验参数
-        
         guard shouldOpenURLAction(urlAction: urlAction) else{
             return nil
         }
@@ -113,9 +113,8 @@ public class FBBaseRouter:NSObject {
         }
 
         urlAction.urlTarget = self.matchTargetWithURLAction(urlAction: urlAction)
-        guard urlAction.urlTarget != nil else{
+        guard urlAction.urlTarget?.targetType != FBTargetType.controller else{
             onMatchUnhandledURLAction(urlAction: urlAction)
-            openSuccess = false
             return nil
         }
         var viewController : UIViewController?
@@ -127,9 +126,19 @@ public class FBBaseRouter:NSObject {
         guard (viewController != nil) else{
             return nil
         }
+        if viewController!.handleWithURLAction(urlAction) {
+            return nil
+        }
         onMatchViewController(viewController!, urlAction: urlAction)
         openSuccess = true
         return viewController
+    }
+    @discardableResult
+    public func openURLAction(_ urlAction:FBURLAction) -> UIViewController? {
+        guard let from = UIViewController.topController else {
+            return nil
+        }
+        return openURLAction(urlAction, from: from)
     }
     //push页面
     func push(_ urlAction:FBURLAction,from:UIViewController?) -> UIViewController? {
@@ -157,12 +166,22 @@ public class FBBaseRouter:NSObject {
         return viewController
     }
     
+    func openViewController(urlAction:FBURLAction,viewController:UIViewController) {
+        var isSingleton = urlAction.isSingleton
+        if !isSingleton {
+            isSingleton = urlAction.urlTarget?.targetClass!.isSingleton(urlAction) ?? false
+        }
+        
+    }
+    
+    
+    
     //presentVC
     func present(_ urlAction:FBURLAction,from:UIViewController?) -> UIViewController? {
         //获取顶层控制器的导航栏
         guard let currentViewController = from ?? UIViewController.topController else {
-          onMatchUnhandledURLAction(urlAction: urlAction)
-          return nil
+            onMatchUnhandledURLAction(urlAction: urlAction)
+            return nil
         }
         guard let viewController = obtainTargetControllerCheckURLAction(urlAction,navigationController: currentViewController.navigationController) else {
             onMatchUnhandledURLAction(urlAction: urlAction)
@@ -214,10 +233,7 @@ public class FBBaseRouter:NSObject {
     }
     
     
-	@discardableResult
-	func openURLAction(urlAction:FBURLAction) -> UIViewController? {
-        return nil
-	}
+	
 
     func callBack(urlAction:FBURLAction,success:Bool) {
         guard let complete = urlAction.completeBlock else{
