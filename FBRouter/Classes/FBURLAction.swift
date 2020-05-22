@@ -81,10 +81,48 @@ public class FBURLAction:NSObject {
 }
 
 
-public extension FBURLAction{
+extension FBURLAction{
     
+    public func setInteger(_ key:String, value:NSInteger) {
+        self.params[key.lowercased()] = value
+    }
     
+    public func setDouble(_ key:String, value:Double) {
+        self.params[key.lowercased()] = value
+    }
+    public func setString(_ key:String, value:String) {
+        self.params[key.lowercased()] = value
+    }
+    public func setBool(_ key:String, value:Bool) {
+        self.params[key.lowercased()] = value
+    }
+    public func setAny(_ key:String, value:Any) {
+        self.params[key.lowercased()] = value
+    }
+    public func addEntriesFromDictonary(entries:Dictionary<String, Any>){
+        for item in entries{
+            self.params[item.key.lowercased()] = item.value
+        }
+    }
+    public func addParamsFromURLAction(urlAction:FBURLAction) {
+        self.addEntriesFromDictonary(entries: urlAction.params)
+    }
     
+    public func integer(_ key:String) -> NSInteger? {
+        return self.params[key] as? NSInteger
+    }
+    public func double(_ key:String) -> Double? {
+        return self.params[key] as? Double
+    }
+    public func string(_ key:String) -> String? {
+        return self.params[key] as? String
+    }
+    public func bool(_ key:String) -> Bool?{
+        return self.params[key] as? Bool
+    }
+    public func anyObject(_ key:String) -> Any?{
+        return self.params[key]
+    }
     
 }
 
