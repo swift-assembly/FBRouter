@@ -8,10 +8,11 @@
 
 import UIKit
 import FBRouter
-import FBExtension
 
 class ViewController: UIViewController {
 
+	
+	
     override func handleWithURLAction(_ urlAction: FBURLAction) -> Bool {
         
         return super.handleWithURLAction(urlAction)
@@ -22,7 +23,7 @@ class ViewController: UIViewController {
     }
     
     override class func isSingleton(_ urlAction: FBURLAction) -> Bool {
-        return super.isSingleton(urlAction)
+        return true
     }
     var pageType:Int = 0
     
@@ -41,9 +42,12 @@ class ViewController: UIViewController {
     
     @objc func buttonAction(_ sender:UIButton) {
         let urlAction = FBURLAction.init(host: "vc01?a=b")
+		urlAction.completeBlock = {
+			(succes) in
+			print("succes:",urlAction.url!)
+		}
         urlAction.isSingleton = true
-        urlAction.setBool("abc", value: true)
-        print(urlAction.params)
+        urlAction.setBool("AbC", value: true)
         FBRouter.router().openURLAction(urlAction,from: self)
     }
     

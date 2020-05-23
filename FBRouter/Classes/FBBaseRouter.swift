@@ -88,10 +88,11 @@ open class FBBaseRouter:NSObject {
 	}
     @discardableResult
     public func openURLAction(_ urlAction:FBURLAction,from:UIViewController?) -> UIViewController? {
-        openSuccess = false
         urlAction.from = from
         defer {
-            callBack(urlAction: urlAction, success: openSuccess)
+			if !urlAction.openSuccess {
+				 callBack(urlAction: urlAction, success: urlAction.openSuccess)
+			}
         }
         //校验参数
         guard shouldOpenURLAction(urlAction: urlAction) else{
@@ -128,7 +129,6 @@ open class FBBaseRouter:NSObject {
             return nil
         }
         onMatchViewController(viewController!, urlAction: urlAction)
-        openSuccess = true
         return viewController
     }
     @discardableResult
@@ -172,15 +172,31 @@ open class FBBaseRouter:NSObject {
             isSingleton = urlAction.urlTarget?.targetClass!.isSingleton(urlAction) ?? false
         }
 //        #warning("todo") //栈内存在单例如何处理
+		var pop:Bool = false
         if isSingleton && navigationController.viewControllers.contains(viewController){
-            if viewController == navigationController.viewControllers.last {
-                return;
-            }
-            navigationController.viewControllers.removeAll { (vc) -> Bool in
-                return vc == viewController
-            }
+			pop = true
+			if urlAction.options.contains(FBRouterOptions.force_push) {
+				pop = false
+				if viewController == navigationController.viewControllers.last {
+					self.callBack(urlAction: urlAction, success: true)
+					return;
+				}
+				navigationController.viewControllers.removeAll { (vc) -> Bool in
+					return vc == viewController
+				}
+			}
         }
-        navigationController.pushViewController(viewController, animated: urlAction.animation)
+		urlAction.openSuccess = true
+		if pop {
+			navigationController.popToViewController(viewController, animated: urlAction.animation) { (controllers) in
+				self.callBack(urlAction: urlAction, success: true)
+			}
+			return
+		}
+		navigationController.pushViewController(viewController, animated: urlAction.animation) { 
+			()in
+			self.callBack(urlAction: urlAction, success: true)
+		}
     }
     
     

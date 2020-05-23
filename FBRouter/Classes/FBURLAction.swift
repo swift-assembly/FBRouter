@@ -14,15 +14,20 @@ public enum FBTargetType {
 	case bridge
 }
 
+
+/// 动效枚举
 public struct FBRouterOptions:OptionSet {
     public init(rawValue: UInt) {
         self.rawValue = rawValue
     }
     public let rawValue: UInt
-    static let push = FBRouterOptions(rawValue: 1 << 0)
-    static let present = FBRouterOptions(rawValue: 1 << 1)
-    static let wrap_nc = FBRouterOptions(rawValue: 1 << 2)
-
+    public static let push 			= 	FBRouterOptions(rawValue: 1 << 0)  	//push
+	public static let force_push 	= 	FBRouterOptions(rawValue: 1 << 1)  	//if isSingleton = true force push 
+	
+	
+    public static let present 		= 	FBRouterOptions(rawValue: 1 << 5) 	//present
+    public static let wrap_nc 		= 	FBRouterOptions(rawValue: 1 << 6)  //add UINavigationController when present
+	
 }
 
 func URLFromString(host:String) -> URL {
@@ -34,13 +39,15 @@ public class FBURLAction:NSObject {
     public var options:[FBRouterOptions] = [FBRouterOptions.push]
     public private(set) var params:Dictionary<String, Any> = [:]
 	public var animation:Bool = true
+	
 	public var openExternal:Bool = false
 	public var isSingleton:Bool = false
+	
     public weak var from:UIViewController?
     public var completeBlock:((Bool)->Void)? = nil
     public var url:URL?
 	public var urlTarget:FBURLTarget?
-	
+	public var openSuccess:Bool = false
 	
 	override init() {
 		super.init()
@@ -82,11 +89,14 @@ public class FBURLAction:NSObject {
 
 
 extension FBURLAction{
-    
+	
+	/// 传递参数给下一个控制器
+	/// - Parameters:
+	///   - key: key String
+	///   - value: value
     public func setInteger(_ key:String, value:NSInteger) {
         self.params[key.lowercased()] = value
     }
-    
     public func setDouble(_ key:String, value:Double) {
         self.params[key.lowercased()] = value
     }
@@ -99,15 +109,6 @@ extension FBURLAction{
     public func setAny(_ key:String, value:Any) {
         self.params[key.lowercased()] = value
     }
-    public func addEntriesFromDictonary(entries:Dictionary<String, Any>){
-        for item in entries{
-            self.params[item.key.lowercased()] = item.value
-        }
-    }
-    public func addParamsFromURLAction(urlAction:FBURLAction) {
-        self.addEntriesFromDictonary(entries: urlAction.params)
-    }
-    
     public func integer(_ key:String) -> NSInteger? {
         return self.params[key] as? NSInteger
     }
@@ -123,13 +124,17 @@ extension FBURLAction{
     public func anyObject(_ key:String) -> Any?{
         return self.params[key]
     }
-    
+	
+    public func addEntriesFromDictonary(entries:Dictionary<String, Any>){
+        for item in entries{
+            self.params[item.key.lowercased()] = item.value
+        }
+    }
+	
+    public func addParamsFromURLAction(urlAction:FBURLAction) {
+        self.addEntriesFromDictonary(entries: urlAction.params)
+    }
 }
-
-
-
-
-
 
 
 extension String {

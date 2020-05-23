@@ -11,10 +11,13 @@ import FBRouter
 
 class ViewController01: UIViewController {
     override func handleWithURLAction(_ urlAction: FBURLAction) -> Bool {
-        let abc = urlAction.bool("abc")
-        print(abc as Any)
+		let abc:Bool = urlAction.bool("abc") ?? false
+		print("abc:",abc)
         return super.handleWithURLAction(urlAction)
     }
+	override class func isSingleton(_ urlAction: FBURLAction) -> Bool {
+		return true
+	}
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,10 +33,11 @@ class ViewController01: UIViewController {
     }
         
     @objc func buttonAction(_ sender:UIButton) {
-        let urlAction = FBURLAction.init(host: "vc00?a=b")
-//        urlAction.bool(<#T##key: String##String#>)
-        urlAction.isSingleton = true
-        print(urlAction.params)
+        let urlAction = FBURLAction.init(host: "vc02?a=b")
+		urlAction.completeBlock = {
+			(succes) in
+			print("succes:",urlAction.url!)
+		}
         FBRouter.router().openURLAction(urlAction,from: self)
     }
 

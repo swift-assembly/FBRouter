@@ -22,7 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.rootViewController = UINavigationController.init(rootViewController: ViewController.init())
 		self.window!.makeKeyAndVisible()
         
-        let urlMappings = ["vc00":"ViewController","vc01":"ViewController01"]
+        let urlMappings = ["vc00":"ViewController",
+						   "vc01":"ViewController01",
+						   "vc02":"ViewController02",
+						   "vc03":"ViewController03",
+						   "vc04":"ViewController04"]
         FBRouter.router().registURLMapping(urlmappings: urlMappings)
         
 		return true
