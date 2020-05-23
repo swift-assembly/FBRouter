@@ -14,7 +14,7 @@ jobs:
       - name: Build and Text
         run: |
           cd Examples
-          xcodebuild clean build test -project Example.xcodeproj -scheme Examples -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+          xcodebuild -workspace Example.xcworkspace -scheme Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
         env: 
          destination: ${{ matrix.destination }}
       - name: Update Code Coverage
