@@ -15,7 +15,13 @@ public class FBRouter:FBBaseRouter{
         FBRSwizzleManager.shared()
 		scheme = "fb"
 	}
-    
+	public static func urlMappings () -> Dictionary<String,FBURLTarget>{
+		return FBRouter.router().urlMappings
+	}
+	public static func setScheme(scheme: String) {
+        FBRouter.router().scheme = scheme
+    }
+	
     override func setScheme(scheme: String) {
         self.scheme = scheme
     }
@@ -49,6 +55,33 @@ public class FBRouter:FBBaseRouter{
     }
     public func openHttpURLString(httpUrl:String) -> UIViewController? {
         return openURLAction(FBURLAction.init(httpUrl: httpUrl))
+    }
+	
+    public static func openURL(url:URL,from:UIViewController) -> UIViewController? {
+        return FBRouter.router().openURLAction(FBURLAction.init(url: url), from: from)
+    }
+    public static func openURLString(urlString:String,from:UIViewController) -> UIViewController? {
+        return FBRouter.router().openURLAction(FBURLAction.init(urlString: urlString), from: from)
+    }
+    public static func openHttpURLString(httpUrl:String,from:UIViewController) -> UIViewController? {
+        return FBRouter.router().openURLAction(FBURLAction.init(httpUrl: httpUrl), from: from)
+    }
+    
+    public static func openHost(host:String,from:UIViewController) -> UIViewController? {
+        return FBRouter.router().openURLAction(FBURLAction.init(host: host),from: from)
+    }
+    
+    public static func openHost(host:String) -> UIViewController? {
+        return FBRouter.router().openURLAction(FBURLAction.init(host: host))
+    }
+    public static func openURL(url:URL) -> UIViewController? {
+        return FBRouter.router().openURLAction(FBURLAction.init(url: url))
+    }
+    public static func openURLString(urlString:String) -> UIViewController? {
+        return FBRouter.router().openURLAction(FBURLAction.init(urlString: urlString))
+    }
+    public static func openHttpURLString(httpUrl:String) -> UIViewController? {
+        return FBRouter.router().openURLAction(FBURLAction.init(httpUrl: httpUrl))
     }
     
    

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FBRouter
+
 
 class ListViewController: UIViewController {
 
@@ -21,6 +23,9 @@ class ListViewController: UIViewController {
         // Do any additional setup after loading the view.
 		self.view.addSubview(self.tableView)
 		self.tableView.frame = self.view.bounds
+		print(FBRouter.urlMappings())
+		
+		
 		
     }
 	
