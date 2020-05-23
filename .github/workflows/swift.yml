@@ -14,6 +14,7 @@ jobs:
       - name: Build and Text
         run: |
           cd Example
+          sh pod_install.sh
           xcodebuild -workspace Example.xcworkspace -scheme Example -sdk iphonesimulator
         env: 
          destination: ${{ matrix.destination }}
