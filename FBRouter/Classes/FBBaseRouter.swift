@@ -120,7 +120,7 @@ open class FBBaseRouter:NSObject {
             return nil
         }
         var viewController : UIViewController?
-        if urlAction.options.count == 0 || urlAction.options.contains(FBRouterOptions.push)  {
+        if urlAction.options.count == 0 || urlAction.options.contains(FBRouterOptions.push)||urlAction.options.contains(FBRouterOptions.force_push)  {
             viewController = push(urlAction, from: from)
         }else if urlAction.options.contains(FBRouterOptions.present) {
             viewController = present(urlAction, from: from)

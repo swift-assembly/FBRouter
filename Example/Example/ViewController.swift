@@ -37,7 +37,7 @@ class ViewController: UIViewController {
         button.frame = CGRect.init(x: 100, y: 100, width: 100, height: 30)
         self.view.addSubview(button)
         button.addTarget(self, action: #selector(buttonAction(_:)), for: UIControl.Event.touchUpInside)
-
+//		button.addta
     }
     
     @objc func buttonAction(_ sender:UIButton) {
@@ -49,6 +49,9 @@ class ViewController: UIViewController {
         urlAction.isSingleton = true
         urlAction.setBool("AbC", value: true)
         FBRouter.router().openURLAction(urlAction,from: self)
+		
+		let options : NSStringDrawingOptions = NSStringDrawingOptions(rawValue: NSStringDrawingOptions.usesLineFragmentOrigin.rawValue | NSStringDrawingOptions.usesFontLeading.rawValue)
+		print(options)
     }
     
     
@@ -57,6 +60,7 @@ class ViewController: UIViewController {
     }
     
     func test()  {
+		
 //        FBURLAction.init(url: "a").options = FBRouterOptions.present
     }
 

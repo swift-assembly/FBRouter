@@ -41,7 +41,7 @@ class ViewController02: UIViewController {
     @objc func buttonAction(_ sender:UIButton) {
 		if sender.tag == 100 {
 			let urlAction = FBURLAction.init(host: "vc01?a=b")
-			urlAction.options =  [FBRouterOptions.force_push,FBRouterOptions.push]
+			urlAction.options =  [FBRouterOptions.force_push]
 			urlAction.isSingleton = true
 			urlAction.completeBlock = {
 				(succes) in
