@@ -8,16 +8,13 @@ jobs:
   test:
     name: Build
     runs-on: macOS-latest
-    strategy:
-        matrix:
-          destination: ['platform=iOS Simulator,OS=13.3,name=iPhone 11']
     steps:
       - name: Checkout
         uses: actions/checkout@master
       - name: Build and Text
         run: |
-          cd Example
-          xcodebuild clean build test -project Example.xcodeproj -scheme Example -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+          cd Examples
+          xcodebuild clean build test -project Example.xcodeproj -scheme Examples -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
         env: 
          destination: ${{ matrix.destination }}
       - name: Update Code Coverage
