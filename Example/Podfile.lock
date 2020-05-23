@@ -1,0 +1,25 @@
+PODS:
+  - Alamofire (5.1.0)
+  - FBRouter (0.0.1):
+    - FBRouter/FBRouter (= 0.0.1)
+  - FBRouter/FBRouter (0.0.1)
+
+DEPENDENCIES:
+  - Alamofire
+  - FBRouter (from `../`)
+
+SPEC REPOS:
+  https://github.com/flywithbug/CCPodspec.git:
+    - Alamofire
+
+EXTERNAL SOURCES:
+  FBRouter:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Alamofire: a89cc170d57ef0fabc42c12728e7482f0585d149
+  FBRouter: e5aec205c7f4295e24d10e70c7897d5ca1251cf3
+
+PODFILE CHECKSUM: 6ee8a452f6a123b6998a49af8cc6fa7af34916c1
+
+COCOAPODS: 1.9.1
