@@ -19,15 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Override point for customization after application launch.
 		self.window = UIWindow(frame: UIScreen.main.bounds)
 		self.window!.backgroundColor = UIColor.white
-        self.window!.rootViewController = UINavigationController.init(rootViewController: ViewController.init())
+        self.window!.rootViewController = UINavigationController.init(rootViewController: ListViewController.init())
 		self.window!.makeKeyAndVisible()
-        
-        let urlMappings = ["vc00":"ViewController",
-						   "vc01":"ViewController01",
-						   "vc02":"ViewController02",
-						   "vc03":"ViewController03",
-						   "vc04":"ViewController04"]
-        FBRouter.router().registURLMapping(urlmappings: urlMappings)
+		
+		//注册路由
+		RouterRegister.registerURLMappings()
         
 		return true
 	}
