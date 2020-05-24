@@ -19,10 +19,15 @@ class ViewController: UIViewController {
         return super.handleWithURLAction(urlAction)
     }
     
+	
+	/// 本页面是否需要登录才能使用（需要实现FBRouter单例处理login事件）
+	/// - Parameter urlAction: <#urlAction description#>
     override class func needsLogin(_ urlAction: FBURLAction) -> Bool {
         return super.needsLogin(urlAction)
     }
-    
+	
+	/// 栈内单例控制器
+	/// - Parameter urlAction: <#urlAction description#>
     override class func isSingleton(_ urlAction: FBURLAction) -> Bool {
         return true
     }
@@ -41,6 +46,7 @@ class ViewController: UIViewController {
     }
     
     @objc func buttonAction(_ sender:UIButton) {
+		
         let urlAction = FBURLAction.init(host: "vc01?a=b")
 		urlAction.completeBlock = {
 			(succes) in

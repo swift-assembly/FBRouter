@@ -11,7 +11,7 @@ import FBRouter
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,FBRouterDelegate{
 
 	var window: UIWindow?
 
@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		//注册路由
 		RouterRegister.registerURLMappings()
+		FBRouter.router().deleage = self
         
 		return true
 	}
@@ -53,7 +54,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	
 
-
+//FBRouterDelegate
+	func shouldOpenURLAction(_ urlAction: FBURLAction) -> Bool {
+		return true
+	}
+	
+	func willOpenExternal(_ urlAction: FBURLAction) -> Bool {
+		return true
+	}
+	
+	func didOpenExternal(_ urlAction: FBURLAction, success: Bool) {
+		
+	}
+	
+	func willOpenURLAction(_ urlAction: FBURLAction) {
+		
+	}
+	
+	func onMatchUnhandledURLAction(_ urlAction: FBURLAction) {
+		
+	}
+	
+	func onMatchViewController(_ controller: UIViewController, urlAction: FBURLAction) {
+		
+	}
+	
+	func openExternal(_ urlAction: FBURLAction, completionHandler completion: ((Bool) -> Void)?) {
+		UIApplication.shared.open(urlAction.url!, options: [:], completionHandler:{
+            (success) in
+            guard let complete = urlAction.completeBlock else{
+                return
+            }
+            complete(success)
+        })
+	}
+	
+	func handleLoginAction(_ urlAction: FBURLAction, controller: UIViewController) -> Bool {
+		return true
+	}
 	
 
 }

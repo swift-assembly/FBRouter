@@ -17,7 +17,7 @@ public protocol FBRouterDelegate:class {
     func willOpenURLAction(_ urlAction:FBURLAction)
     func onMatchUnhandledURLAction(_ urlAction:FBURLAction)
     func onMatchViewController(_ controller:UIViewController,urlAction:FBURLAction)
-    func openExternal(_ urlAction:FBURLAction, completionHandler completion: ((Bool) -> Void)?)
+	func openExternal(_ urlAction:FBURLAction, completionHandler completion: ((Bool) -> Void)?)
     func handleLoginAction(_ urlAction:FBURLAction,controller:UIViewController) -> Bool
 
 }

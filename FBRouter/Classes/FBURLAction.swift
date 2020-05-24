@@ -177,8 +177,6 @@ public func  FBClassFromString(string: String)-> AnyClass?{
     return NSClassFromString(stringName)
 }
 
-
-
 extension UIViewController {
     private struct AssociatedKey {
         static var urlActionIdentifier: String = "urlActionIdentifier"

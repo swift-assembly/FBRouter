@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FBRouter
 
 class ViewController04: UIViewController {
 
@@ -16,7 +17,7 @@ class ViewController04: UIViewController {
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.white
           let button:UIButton = UIButton.init(type: UIButton.ButtonType.custom)
-          button.setTitle("test", for: UIControl.State.normal)
+          button.setTitle("present", for: UIControl.State.normal)
           button.setTitleColor(UIColor.black, for: UIControl.State.normal)
           button.frame = CGRect.init(x: 100, y: 100, width: 100, height: 30)
           self.view.addSubview(button)
@@ -24,7 +25,11 @@ class ViewController04: UIViewController {
     }
         
     @objc func buttonAction(_ sender:UIButton) {
-		self.navigationController?.popViewController()
+//		self.openh
+		//present Controller
+		let urlAction = FBURLAction.init(host: "vc05")
+		urlAction.options = [FBRouterOptions.present,FBRouterOptions.wrap_nc]
+		openURLAction(urlAction)
     }
 
 }

@@ -136,6 +136,10 @@ public extension UIViewController{
         return FBRouter.router().openURLAction(urlAction,from: self)
     }
 	@discardableResult
+    func openHostString(host:String) -> UIViewController? {
+        return openURLAction(FBURLAction.init(host: host))
+    }
+	@discardableResult
     func openURL(url:URL) -> UIViewController? {
         return openURLAction(FBURLAction.init(url: url))
     }
@@ -147,4 +151,6 @@ public extension UIViewController{
     func openHttpURLString(httpUrl:String) -> UIViewController? {
         return openURLAction(FBURLAction.init(httpUrl: httpUrl))
     }
+	
+	
 }

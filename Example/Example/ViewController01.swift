@@ -33,6 +33,8 @@ class ViewController01: UIViewController {
     }
         
     @objc func buttonAction(_ sender:UIButton) {
+		
+		/// push 到一个新页面
         let urlAction = FBURLAction.init(host: "vc02?a=b")
 		urlAction.completeBlock = {
 			(succes) in

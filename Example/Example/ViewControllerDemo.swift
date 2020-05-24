@@ -1,16 +1,15 @@
 //
-//  ListViewController.swift
+//  ViewControllerDemo.swift
 //  Example
 //
-//  Created by Ori on 2020/5/23.
+//  Created by Ori on 2020/5/24.
 //  Copyright © 2020 Ori. All rights reserved.
 //
 
 import UIKit
 import FBRouter
 
-
-class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class ViewControllerDemo: UIViewController,UITableViewDelegate,UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return self.items.count
@@ -62,9 +61,6 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 		self.tableView.reloadData()
 		
     }
-	
-	
-	
 	
 	
 
