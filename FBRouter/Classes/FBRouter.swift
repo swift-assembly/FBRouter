@@ -15,23 +15,26 @@ public class FBRouter:FBBaseRouter{
         FBRSwizzleManager.shared()
 		scheme = "fb"
 	}
+	
+	public class func router() -> FBRouter {
+		return shareInstance
+	}
+	
 	public static func urlMappings () -> Dictionary<String,String>{
 		return FBRouter.router().urlMappings
 	}
 	public static func hostTargetMappings() -> Dictionary<String,FBURLTarget> {
 		return FBRouter.router().urlTargetMappings
 	}
+	
 	public static func setScheme(scheme: String) {
         FBRouter.router().scheme = scheme
     }
 	
-    override func setScheme(scheme: String) {
-        self.scheme = scheme
-    }
-    
-	public class func router() -> FBRouter {
-		return shareInstance
+	public static func registURLMapping(urlmappings:Dictionary<String,String>){
+		FBRouter.router().registURLMapping(urlmappings: urlmappings)
 	}
+	
 	
 	@discardableResult
     public func openURL(url:URL,from:UIViewController) -> UIViewController? {
