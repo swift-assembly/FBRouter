@@ -3,3 +3,5 @@
 [![CocoaPods](http://img.shields.io/cocoapods/v/FBRouter.svg)](https://cocoapods.org/pods/FBRouter)
 [![Build Status](https://github.com/swift-assembly/FBRouter/workflows/CI/badge.svg)](https://github.com/swift-assembly/FBRouter/actions)
 [![CodeCov](https://img.shields.io/codecov/c/github/swift-assembly/FBRouter.svg)](https://codecov.io/gh/swift-assembly/FBRouter)
+
+![registe](https://raw.github.com/swift-assembly/FBRouter/master/Source/register.png)
