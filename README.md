@@ -21,17 +21,6 @@
 3. 导入 import FBRouter。
 
 
-系统要求
-==============
-swift 5.0
-该项目最低支持 `iOS 10.0` 和 `Xcode 11.0`。
-
-
-
-许可证
-==============
-FBRouter 使用 MIT 许可证，详情见 LICENSE 文件。
-
 
 
 API 
@@ -339,3 +328,16 @@ urlAction.completeBlock = {
 openURLAction(urlAction)
 
 ```
+
+
+系统要求
+==============
+swift 5.0
+该项目最低支持 `iOS 10.0` 和 `Xcode 11.0`。
+
+
+
+许可证
+==============
+FBRouter 使用 MIT 许可证，详情见 LICENSE 文件。
+
