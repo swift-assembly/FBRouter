@@ -1,8 +1,8 @@
 PODS:
   - Alamofire (5.1.0)
-  - FBRouter (0.0.1):
-    - FBRouter/FBRouter (= 0.0.1)
-  - FBRouter/FBRouter (0.0.1)
+  - FBRouter (0.0.2):
+    - FBRouter/FBRouter (= 0.0.2)
+  - FBRouter/FBRouter (0.0.2)
 
 DEPENDENCIES:
   - Alamofire
@@ -18,7 +18,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: a89cc170d57ef0fabc42c12728e7482f0585d149
-  FBRouter: e5aec205c7f4295e24d10e70c7897d5ca1251cf3
+  FBRouter: 8a4a92272078081af4bd5306befe489d8083a7d1
 
 PODFILE CHECKSUM: 6ee8a452f6a123b6998a49af8cc6fa7af34916c1
 

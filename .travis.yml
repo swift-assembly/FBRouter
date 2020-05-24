@@ -1,0 +1,8 @@
+language: swift # or objective-c
+osx_image: xcode11
+script:
+  - cd Example
+  - sh pod_install.sh
+  - xcodebuild -workspace Example.xcworkspace -scheme Example -sdk iphonesimulator
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
