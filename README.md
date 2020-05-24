@@ -7,6 +7,7 @@
 <!--
 ![registe](https://raw.githubusercontent.com/swift-assembly/FBRouter/master/Source/register.jpg)
 -->
+![demo_gif](https://raw.githubusercontent.com/swift-assembly/FBRouter/master/Source/RPReplay_Final1590321909.gif)
 
 安装
 ==============
