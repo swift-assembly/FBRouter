@@ -4,8 +4,9 @@
 [![Build Status](https://github.com/swift-assembly/FBRouter/workflows/CI/badge.svg)](https://github.com/swift-assembly/FBRouter/actions)
 [![CodeCov](https://img.shields.io/codecov/c/github/swift-assembly/FBRouter.svg)](https://codecov.io/gh/swift-assembly/FBRouter)
 
+<!--
 ![registe](https://raw.githubusercontent.com/swift-assembly/FBRouter/master/Source/register.jpg)
-
+-->
 
 Usage
 ==============================
