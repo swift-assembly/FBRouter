@@ -22,8 +22,8 @@ jobs:
         run: |
           bash <(curl -s https://codecov.io/bash) -J 'Example'
 
-      - name: Update CocoaPods
-        run: |
-          sh auto_release_cocoapods.sh    
+      # - name: Update CocoaPods
+      #   run: |
+      #     sh auto_release_cocoapods.sh    
      
      
