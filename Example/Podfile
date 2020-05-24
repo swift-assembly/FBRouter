@@ -9,7 +9,7 @@ target 'Example' do
 	pod 'FBRouter', :path => '../'
 #	pod 'FBExtension', :path => '../../FBExtension'
 #	
-	pod 'Alamofire'
+#	pod 'Alamofire'
 	
 end
 
