@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class FBRouter:FBBaseRouter{
+public class FBRouter:FBNavigator{
 	private static let shareInstance = FBRouter()
 	private override init() {
 		super.init()

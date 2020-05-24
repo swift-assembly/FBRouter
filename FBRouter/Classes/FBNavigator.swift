@@ -9,13 +9,16 @@
 import UIKit
 
 
-open class FBBaseRouter:NSObject {
+open class FBNavigator:NSObject {
 
-    //默认导航控制器类
+	/// routerMappings
     public var urlMappings:Dictionary<String,String>
 	public var urlTargetMappings:Dictionary<String,FBURLTarget>
+	
+	
     public var currentNavigationController:UINavigationController?
     open weak var deleage:FBRouterDelegate?
+	
 	public var wrapNavgClass:UINavigationController.Type =  UINavigationController.self
 	
     var timerDuration:TimeInterval = 0.40
@@ -149,7 +152,7 @@ open class FBBaseRouter:NSObject {
             onMatchUnhandledURLAction(urlAction: urlAction)
             return nil
         }
-    
+		currentNavigationController = navigationContrller
         guard let viewController = obtainTargetControllerCheckURLAction(urlAction,navigationController: navigationContrller) else {
             onMatchUnhandledURLAction(urlAction: urlAction)
             return nil
@@ -211,6 +214,7 @@ open class FBBaseRouter:NSObject {
             onMatchUnhandledURLAction(urlAction: urlAction)
             return nil
         }
+
         guard let viewController = obtainTargetControllerCheckURLAction(urlAction,navigationController: currentViewController.navigationController) else {
             onMatchUnhandledURLAction(urlAction: urlAction)
             return nil
