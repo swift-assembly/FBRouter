@@ -53,7 +53,14 @@ class ViewController: UIViewController {
 			print("succes:",urlAction.url!)
 		}
         urlAction.isSingleton = true
-        urlAction.setBool("AbC", value: true)
+        urlAction.setBool("Bool", value: true)
+		urlAction.setString("String", value: "String")
+		urlAction.setDouble("Double", value: 2.0202)
+		urlAction.setInteger("Integer", value: 101)
+		let person:Person = Person.init()
+		person.age = 18
+		person.name = "nini"
+		urlAction.setAny("person", value: person)
         FBRouter.router().openURLAction(urlAction,from: self)
 		
 		let options : NSStringDrawingOptions = NSStringDrawingOptions(rawValue: NSStringDrawingOptions.usesLineFragmentOrigin.rawValue | NSStringDrawingOptions.usesFontLeading.rawValue)

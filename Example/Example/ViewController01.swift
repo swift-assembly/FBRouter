@@ -13,6 +13,8 @@ class ViewController01: UIViewController {
     override func handleWithURLAction(_ urlAction: FBURLAction) -> Bool {
 		let abc:Bool = urlAction.bool("abc") ?? false
 		print("abc:",abc)
+		let person = urlAction.anyObject("person") as! Person
+		print("person:",person)
         return super.handleWithURLAction(urlAction)
     }
 	override class func isSingleton(_ urlAction: FBURLAction) -> Bool {
@@ -40,7 +42,7 @@ class ViewController01: UIViewController {
 			(succes) in
 			print("succes:",urlAction.url!)
 		}
-        FBRouter.router().openURLAction(urlAction,from: self)
+        openURLAction(urlAction)
     }
 
     /*

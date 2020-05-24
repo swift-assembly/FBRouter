@@ -30,6 +30,9 @@ public struct FBRouterOptions:OptionSet {
 	
 }
 
+
+/// format URLString withscheme
+/// - Parameter host: 
 func URLFromString(host:String) -> URL {
     return  URL.init(string: FBRouter.router().scheme + "://" + host)!
 }
@@ -69,6 +72,9 @@ public class FBURLAction:NSObject {
         self.init(url:url)
     }
     
+	
+	/// use scheme setting
+	/// - Parameter host: 
 	public convenience init(host:String) {
         self.init(url:URLFromString(host: host))
 	}
@@ -97,6 +103,10 @@ extension FBURLAction{
     public func setInteger(_ key:String, value:NSInteger) {
         self.params[key.lowercased()] = value
     }
+	
+    public func setInt(_ key:String, value:Int) {
+        self.params[key.lowercased()] = value
+    }
     public func setDouble(_ key:String, value:Double) {
         self.params[key.lowercased()] = value
     }
@@ -112,6 +122,9 @@ extension FBURLAction{
     public func integer(_ key:String) -> NSInteger? {
         return self.params[key] as? NSInteger
     }
+	public func int(_ key:String) -> Int? {
+		   return self.params[key] as? Int
+	   }
     public func double(_ key:String) -> Double? {
         return self.params[key] as? Double
     }

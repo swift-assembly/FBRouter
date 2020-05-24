@@ -103,6 +103,11 @@ open class FBNavigator:NSObject {
         guard shouldOpenURLAction(urlAction: urlAction) else{
             return nil
         }
+		
+		//判断是否应用scheme
+		if urlAction.url?.scheme != self.scheme {
+			urlAction.openExternal = true
+		}
         
         guard !urlAction.openExternal  else {
             guard !willOpenExternal(urlAction: urlAction) else {
