@@ -26,7 +26,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let item = self.items[indexPath.row];
 		let urlAction = FBURLAction.init(host: item)
-		FBRouter.openURLAction(urlAction)
+		openURLAction(urlAction)
 		tableView.deselectRow(at: indexPath, animated: true)
 	}
 	

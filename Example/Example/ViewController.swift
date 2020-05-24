@@ -38,7 +38,6 @@ class ViewController: UIViewController {
         button.frame = CGRect.init(x: 100, y: 100, width: 100, height: 30)
         self.view.addSubview(button)
         button.addTarget(self, action: #selector(buttonAction(_:)), for: UIControl.Event.touchUpInside)
-//		button.addta
     }
     
     @objc func buttonAction(_ sender:UIButton) {

@@ -85,44 +85,42 @@ public class FBRouter:FBBaseRouter{
 	
 	@discardableResult
     public static func openURL(url:URL,from:UIViewController) -> UIViewController? {
-        return FBRouter.router().openURLAction(FBURLAction.init(url: url), from: from)
+        return openURLAction(FBURLAction.init(url: url), from: from)
     }
 	
 	@discardableResult
     public static func openURLString(urlString:String,from:UIViewController) -> UIViewController? {
-        return FBRouter.router().openURLAction(FBURLAction.init(urlString: urlString), from: from)
+        return openURLAction(FBURLAction.init(urlString: urlString), from: from)
     }
 	
 	@discardableResult
     public static func openHttpURLString(httpUrl:String,from:UIViewController) -> UIViewController? {
-        return FBRouter.router().openURLAction(FBURLAction.init(httpUrl: httpUrl), from: from)
+        return openURLAction(FBURLAction.init(httpUrl: httpUrl), from: from)
     }
-    
 	
 	@discardableResult
     public static func openHost(host:String,from:UIViewController) -> UIViewController? {
-        return FBRouter.router().openURLAction(FBURLAction.init(host: host),from: from)
+        return openURLAction(FBURLAction.init(host: host),from: from)
     }
-    
 	
 	@discardableResult
     public static func openHost(host:String) -> UIViewController? {
-        return FBRouter.router().openURLAction(FBURLAction.init(host: host))
+        return openURLAction(FBURLAction.init(host: host))
     }
 	
 	@discardableResult
     public static func openURL(url:URL) -> UIViewController? {
-        return FBRouter.router().openURLAction(FBURLAction.init(url: url))
+        return openURLAction(FBURLAction.init(url: url))
     }
 	
 	@discardableResult
     public static func openURLString(urlString:String) -> UIViewController? {
-        return FBRouter.router().openURLAction(FBURLAction.init(urlString: urlString))
+        return openURLAction(FBURLAction.init(urlString: urlString))
     }
 	
 	@discardableResult
     public static func openHttpURLString(httpUrl:String) -> UIViewController? {
-        return FBRouter.router().openURLAction(FBURLAction.init(httpUrl: httpUrl))
+        return openURLAction(FBURLAction.init(httpUrl: httpUrl))
     }
     
    
@@ -130,25 +128,20 @@ public class FBRouter:FBBaseRouter{
 
 public extension UIViewController{
     
-    func openURL(url:URL,from:UIViewController) -> UIViewController? {
-        return FBRouter.router().openURLAction(FBURLAction.init(url: url), from: from)
+	@discardableResult
+	func openURLAction(_ urlAction:FBURLAction) -> UIViewController? {
+        return FBRouter.router().openURLAction(urlAction,from: self)
     }
-    func openURLString(urlString:String,from:UIViewController) -> UIViewController? {
-        return FBRouter.router().openURLAction(FBURLAction.init(urlString: urlString), from: from)
-    }
-    func openHttpURLString(httpUrl:String,from:UIViewController) -> UIViewController? {
-        return FBRouter.router().openURLAction(FBURLAction.init(httpUrl: httpUrl), from: from)
-    }
-    
+	@discardableResult
     func openURL(url:URL) -> UIViewController? {
-        return FBRouter.router().openURLAction(FBURLAction.init(url: url))
+        return openURLAction(FBURLAction.init(url: url))
     }
+	@discardableResult
     func openURLString(urlString:String) -> UIViewController? {
-        return FBRouter.router().openURLAction(FBURLAction.init(urlString: urlString))
+        return openURLAction(FBURLAction.init(urlString: urlString))
     }
+	@discardableResult
     func openHttpURLString(httpUrl:String) -> UIViewController? {
-        return FBRouter.router().openURLAction(FBURLAction.init(httpUrl: httpUrl))
+        return openURLAction(FBURLAction.init(httpUrl: httpUrl))
     }
-    
-    
 }

@@ -54,7 +54,7 @@ class ViewController03: UIViewController {
 				(succes) in
 				print("succes:",urlAction.url!)
 			}
-			FBRouter.router().openURLAction(urlAction,from: self)
+			openURLAction(urlAction)
 			return
 		}
 		
@@ -64,7 +64,7 @@ class ViewController03: UIViewController {
 				(succes) in
 				print("succes:",urlAction.url!)
 			}
-			FBRouter.router().openURLAction(urlAction,from: self)
+			openURLAction(urlAction)
 			return
 		}
         let urlAction = FBURLAction.init(host: "vc04?a=b")
@@ -72,7 +72,7 @@ class ViewController03: UIViewController {
 			(succes) in
 			print("succes:",urlAction.url!)
 		}
-        FBRouter.router().openURLAction(urlAction,from: self)
+        openURLAction(urlAction)
     }
 
 }
