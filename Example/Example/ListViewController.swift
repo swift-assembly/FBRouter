@@ -11,6 +11,7 @@ import FBRouter
 
 
 class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return self.items.count
 	}
@@ -23,8 +24,12 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 		return cell
 	}
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		
+		let item = self.items[indexPath.row];
+		let urlAction = FBURLAction.init(host: item)
+		FBRouter.openURLAction(urlAction)
+		tableView.deselectRow(at: indexPath, animated: true)
 	}
+	
 	
 	
 
@@ -37,6 +42,14 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 	}()
 	
 	var items:Array<String>=[]
+	
+	override class func isSingleton(_ urlAction: FBURLAction) -> Bool {
+		return true
+	}
+	override func handleWithURLAction(_ urlAction: FBURLAction) -> Bool {
+		print(urlAction.from as Any)
+		return super.handleWithURLAction(urlAction)
+	}
 	
     override func viewDidLoad() {
         super.viewDidLoad()

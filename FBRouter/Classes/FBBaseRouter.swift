@@ -13,7 +13,7 @@ open class FBBaseRouter:NSObject {
 
     //默认导航控制器类
     public var urlMappings:Dictionary<String,String>
-	public var hostTargetMappings:Dictionary<String,FBURLTarget>
+	public var urlTargetMappings:Dictionary<String,FBURLTarget>
     public var currentNavigationController:UINavigationController?
     open weak var deleage:FBRouterDelegate?
     
@@ -33,7 +33,7 @@ open class FBBaseRouter:NSObject {
 		self.animating = false
 		self.scheme = "fb"
 		self.urlMappings = Dictionary.init()
-		self.hostTargetMappings = Dictionary.init()
+		self.urlTargetMappings = Dictionary.init()
         self.urlActionWaitingList = Array.init()
 		self.lock = NSLock.init()
 	}
@@ -52,7 +52,7 @@ open class FBBaseRouter:NSObject {
 		lock.lock()
         defer {lock.unlock()}
 		for item in urlmappings{
-			self.hostTargetMappings[item.key] = FBURLTarget.init(key: item.key, target: item.value)
+			self.urlTargetMappings[item.key] = FBURLTarget.init(key: item.key, target: item.value)
 			self.urlMappings[item.key] = item.value
 		}
 	}
@@ -61,10 +61,10 @@ open class FBBaseRouter:NSObject {
         guard let host = urlAction.url?.host  else{
             return nil
         }
-        return self.hostTargetMappings[host]
+        return self.urlTargetMappings[host]
     }
     
-	@discardableResult
+	@discardableResult  //获取控制器
     func obtainTargetControllerCheckURLAction(_ urlAction:FBURLAction,
                     navigationController:UINavigationController?) -> UIViewController? {
         guard let targetClass = urlAction.urlTarget?.targetClass as? UIViewController.Type else {
@@ -80,6 +80,7 @@ open class FBBaseRouter:NSObject {
                 return item.isKind(of: targetClass)
             })
             if viewController != nil {
+				if viewController!.handleWithURLAction(urlAction) {return nil}
                 return viewController
             }
         }
@@ -122,6 +123,8 @@ open class FBBaseRouter:NSObject {
             return nil
         }
         var viewController : UIViewController?
+		
+		
         if urlAction.options.count == 0 || urlAction.options.contains(FBRouterOptions.push)||urlAction.options.contains(FBRouterOptions.force_push)  {
             viewController = push(urlAction, from: from)
         }else if urlAction.options.contains(FBRouterOptions.present) {
@@ -173,7 +176,6 @@ open class FBBaseRouter:NSObject {
         if !isSingleton {
             isSingleton = urlAction.urlTarget?.targetClass!.isSingleton(urlAction) ?? false
         }
-//        #warning("todo") //栈内存在单例如何处理
 		var pop:Bool = false
         if isSingleton && navigationController.viewControllers.contains(viewController){
 			pop = true

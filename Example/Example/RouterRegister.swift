@@ -11,7 +11,8 @@ import FBRouter
 
 class RouterRegister: NSObject {
 	public static func registerURLMappings() {
-        let urlMappings = ["vc00":"ViewController",
+		let urlMappings = ["home":"ListViewController",
+						   "vc00":"ViewController",
 						   "vc01":"ViewController01",
 						   "vc02":"ViewController02",
 						   "vc03":"ViewController03",

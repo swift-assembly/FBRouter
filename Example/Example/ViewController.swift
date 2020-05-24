@@ -14,7 +14,8 @@ class ViewController: UIViewController {
 	
 	
     override func handleWithURLAction(_ urlAction: FBURLAction) -> Bool {
-        
+		print("from:",urlAction.from as Any)
+
         return super.handleWithURLAction(urlAction)
     }
     
