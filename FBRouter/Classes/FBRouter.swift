@@ -15,8 +15,11 @@ public class FBRouter:FBBaseRouter{
         FBRSwizzleManager.shared()
 		scheme = "fb"
 	}
-	public static func urlMappings () -> Dictionary<String,FBURLTarget>{
+	public static func urlMappings () -> Dictionary<String,String>{
 		return FBRouter.router().urlMappings
+	}
+	public static func hostTargetMappings() -> Dictionary<String,FBURLTarget> {
+		return FBRouter.router().hostTargetMappings
 	}
 	public static func setScheme(scheme: String) {
         FBRouter.router().scheme = scheme

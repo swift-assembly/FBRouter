@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Override point for customization after application launch.
 		self.window = UIWindow(frame: UIScreen.main.bounds)
 		self.window!.backgroundColor = UIColor.white
-        self.window!.rootViewController = UINavigationController.init(rootViewController: ViewController.init())
+        self.window!.rootViewController = UINavigationController.init(rootViewController: ListViewController.init())
 		self.window!.makeKeyAndVisible()
 		
 		//注册路由
@@ -51,6 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 	}
 
+	
 
 
 	

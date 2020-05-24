@@ -17,6 +17,5 @@ class RouterRegister: NSObject {
 						   "vc03":"ViewController03",
 						   "vc04":"ViewController04"]
         FBRouter.router().registURLMapping(urlmappings: urlMappings)
-
 	}
 }

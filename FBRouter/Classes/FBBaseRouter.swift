@@ -12,7 +12,8 @@ import UIKit
 open class FBBaseRouter:NSObject {
 
     //默认导航控制器类
-    public var urlMappings:Dictionary<String,FBURLTarget>
+    public var urlMappings:Dictionary<String,String>
+	public var hostTargetMappings:Dictionary<String,FBURLTarget>
     public var currentNavigationController:UINavigationController?
     open weak var deleage:FBRouterDelegate?
     
@@ -32,6 +33,7 @@ open class FBBaseRouter:NSObject {
 		self.animating = false
 		self.scheme = "fb"
 		self.urlMappings = Dictionary.init()
+		self.hostTargetMappings = Dictionary.init()
         self.urlActionWaitingList = Array.init()
 		self.lock = NSLock.init()
 	}
@@ -50,16 +52,16 @@ open class FBBaseRouter:NSObject {
 		lock.lock()
         defer {lock.unlock()}
 		for item in urlmappings{
-			self.urlMappings[item.key] = FBURLTarget.init(key: item.key, target: item.value)
+			self.hostTargetMappings[item.key] = FBURLTarget.init(key: item.key, target: item.value)
+			self.urlMappings[item.key] = item.value
 		}
-		
 	}
 	@discardableResult
     func matchTargetWithURLAction(urlAction:FBURLAction) -> FBURLTarget? {
         guard let host = urlAction.url?.host  else{
             return nil
         }
-        return self.urlMappings[host]
+        return self.hostTargetMappings[host]
     }
     
 	@discardableResult
