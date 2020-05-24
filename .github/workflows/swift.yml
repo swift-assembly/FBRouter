@@ -24,7 +24,6 @@ jobs:
 
       - name: Update CocoaPods
         run: |
-          cd ..
           sh auto_release_cocoapods.sh    
      
      
