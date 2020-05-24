@@ -26,8 +26,8 @@ class ViewControllerDemo: UIViewController,UITableViewDelegate,UITableViewDataSo
 		case "push_singleton":
 			cell.detailTextLabel?.text = "router:home"
 			break
-		case "push_singleton_exist":
-			cell.detailTextLabel?.text = "router:demo"
+		case "force_push_singleton_exist":
+			cell.detailTextLabel?.text = "router:home"
 			break
 		case "push_params":
 			cell.detailTextLabel?.text = "router:vc01?a=b"
@@ -56,8 +56,8 @@ class ViewControllerDemo: UIViewController,UITableViewDelegate,UITableViewDataSo
 			//override class func isSingleton(_ urlAction: FBURLAction) -> Bool
 			FBRouter.openURLAction(urlAction)
 			break
-		case "push_singleton_exist":
-			let urlAction = FBURLAction.init(host: "demo")
+		case "force_push_singleton_exist":
+			let urlAction = FBURLAction.init(host: "home")
 			urlAction.options = [FBRouterOptions.force_push]
 			self.openURLAction(urlAction)
 			break
