@@ -30,7 +30,9 @@ public class FBRouter:FBBaseRouter{
 	public static func setScheme(scheme: String) {
         FBRouter.router().scheme = scheme
     }
-	
+	public static func setWrapNavgClass(className: AnyClass) {
+		FBRouter.router().wrapNavgClass = className as! UINavigationController.Type
+    }
 	public static func registURLMapping(urlmappings:Dictionary<String,String>){
 		FBRouter.router().registURLMapping(urlmappings: urlmappings)
 	}

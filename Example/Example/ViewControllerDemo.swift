@@ -19,14 +19,13 @@ class ViewControllerDemo: UIViewController,UITableViewDelegate,UITableViewDataSo
 		let cell = UITableViewCell.init(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "UITableViewCell")
 		let item = self.items[indexPath.row];
 		cell.textLabel?.text = item
-		cell.detailTextLabel?.text = FBRouter.urlMappings()[item]
 		return cell
 	}
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let item = self.items[indexPath.row];
-		let urlAction = FBURLAction.init(host: item)
-		openURLAction(urlAction)
-		tableView.deselectRow(at: indexPath, animated: true)
+//		let item = self.items[indexPath.row];
+//		let urlAction = FBURLAction.init(host: item)
+//		openURLAction(urlAction)
+//		tableView.deselectRow(at: indexPath, animated: true)
 	}
 	
 	lazy var tableView:UITableView = {
@@ -37,8 +36,14 @@ class ViewControllerDemo: UIViewController,UITableViewDelegate,UITableViewDataSo
 		return temp
 	}()
 	
-	var items:Array<String>=[]
-	
+	var items:Array<String>=["push","push_singleton","push_singleton_exist","push_params","present","present_nav"]
+	var details:Array<String>=["普通导航",
+							   "push到一个单例页面",
+							   "push一个栈内单例页面，强制push该页面",
+							   "push页面带参数",
+							   "present一个页面",
+							   "present一个页面，并给加上导航控制器"]
+
 	override class func isSingleton(_ urlAction: FBURLAction) -> Bool {
 		return true
 	}
@@ -50,12 +55,8 @@ class ViewControllerDemo: UIViewController,UITableViewDelegate,UITableViewDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-		self.navigationItem.title = "home"
-		print(FBRouter.urlMappings())
-		self.items  = FBRouter.urlMappings().keys.sorted { (value1, value2) -> Bool in
-			return value1 < value2
-		}
-//		print(self.items[0])
+		self.navigationItem.title = "Demo"
+
 		self.view.addSubview(self.tableView)
 		self.tableView.frame = self.view.bounds
 		self.tableView.reloadData()

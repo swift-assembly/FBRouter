@@ -16,9 +16,8 @@ open class FBBaseRouter:NSObject {
 	public var urlTargetMappings:Dictionary<String,FBURLTarget>
     public var currentNavigationController:UINavigationController?
     open weak var deleage:FBRouterDelegate?
-    
-    
-    var wrapNavgClass:UINavigationController.Type =  UINavigationController.self
+	public var wrapNavgClass:UINavigationController.Type =  UINavigationController.self
+	
     var timerDuration:TimeInterval = 0.40
     
 	var scheme:String
@@ -217,7 +216,7 @@ open class FBBaseRouter:NSObject {
             return nil
         }
         if urlAction.options.contains(FBRouterOptions.wrap_nc) {
-            currentViewController.present(wrapNavgClass.init(rootViewController: viewController), animated: urlAction.animation)
+			currentViewController.present(wrapNavgClass.init(rootViewController: viewController), animated: urlAction.animation)
         }else{
             currentViewController.present(viewController, animated: urlAction.animation)
         }

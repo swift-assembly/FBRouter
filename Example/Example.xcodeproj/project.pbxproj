@@ -19,6 +19,7 @@
 		0C9D4B89247908E700658B20 /* RouterRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9D4B88247908E700658B20 /* RouterRegister.swift */; };
 		0C9D4B8C247A779400658B20 /* ViewController05.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9D4B8B247A779400658B20 /* ViewController05.swift */; };
 		0C9D4B8E247A7A8B00658B20 /* ViewControllerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9D4B8D247A7A8B00658B20 /* ViewControllerDemo.swift */; };
+		0C9D4B90247A7BFA00658B20 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9D4B8F247A7BFA00658B20 /* BaseNavigationController.swift */; };
 		39769001F874FFA637C5B072 /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB0E0EA7D5E2FF2C181707AA /* Pods_Example.framework */; };
 		B4C3CF682477BEB700DFB235 /* ViewController01.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C3CF672477BEB700DFB235 /* ViewController01.swift */; };
 /* End PBXBuildFile section */
@@ -40,6 +41,7 @@
 		0C9D4B88247908E700658B20 /* RouterRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterRegister.swift; sourceTree = "<group>"; };
 		0C9D4B8B247A779400658B20 /* ViewController05.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController05.swift; sourceTree = "<group>"; };
 		0C9D4B8D247A7A8B00658B20 /* ViewControllerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerDemo.swift; sourceTree = "<group>"; };
+		0C9D4B8F247A7BFA00658B20 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		9F5372DE25D0A66767D5E6C3 /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
 		B4C3CF672477BEB700DFB235 /* ViewController01.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController01.swift; sourceTree = "<group>"; };
 		FAD7E18B790C568109DA17BA /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -79,11 +81,15 @@
 		0C85C41C246C4EF700676F64 /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				0C85C426246C4EF800676F64 /* Assets.xcassets */,
 				0C75CC562470EA4000E2E7B0 /* Example.entitlements */,
 				0C75CC552470EA0900E2E7B0 /* ExampleDebug.entitlements */,
+				0C85C42B246C4EF800676F64 /* Info.plist */,
+				0C85C428246C4EF800676F64 /* LaunchScreen.storyboard */,
+				0C9D4B862479075D00658B20 /* ListViewController.swift */,
+				0C9D4B842479071100658B20 /* README.md */,
 				0C85C41D246C4EF700676F64 /* AppDelegate.swift */,
 				0C9D4B88247908E700658B20 /* RouterRegister.swift */,
-				0C9D4B862479075D00658B20 /* ListViewController.swift */,
 				0C85C421246C4EF700676F64 /* ViewController.swift */,
 				B4C3CF672477BEB700DFB235 /* ViewController01.swift */,
 				0C75CC652478F6E200E2E7B0 /* ViewController02.swift */,
@@ -91,10 +97,7 @@
 				0C75CC692478F74400E2E7B0 /* ViewController04.swift */,
 				0C9D4B8B247A779400658B20 /* ViewController05.swift */,
 				0C9D4B8D247A7A8B00658B20 /* ViewControllerDemo.swift */,
-				0C85C426246C4EF800676F64 /* Assets.xcassets */,
-				0C85C428246C4EF800676F64 /* LaunchScreen.storyboard */,
-				0C85C42B246C4EF800676F64 /* Info.plist */,
-				0C9D4B842479071100658B20 /* README.md */,
+				0C9D4B8F247A7BFA00658B20 /* BaseNavigationController.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 				0C75CC6A2478F74400E2E7B0 /* ViewController04.swift in Sources */,
 				0C9D4B89247908E700658B20 /* RouterRegister.swift in Sources */,
 				0C9D4B8C247A779400658B20 /* ViewController05.swift in Sources */,
+				0C9D4B90247A7BFA00658B20 /* BaseNavigationController.swift in Sources */,
 				0C9D4B8E247A7A8B00658B20 /* ViewControllerDemo.swift in Sources */,
 				0C85C41E246C4EF700676F64 /* AppDelegate.swift in Sources */,
 				0C9D4B872479075D00658B20 /* ListViewController.swift in Sources */,
