@@ -188,7 +188,7 @@ API
 
 Usage
 ==============================
-### delegate 
+### delegate & register 
 ```
 	///
 	class AppDelegate: UIResponder, UIApplicationDelegate,FBRouterDelegate{
@@ -196,10 +196,23 @@ Usage
 		func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 			//delegate
 			FBRouter.router().deleage = self
+			registerURLMappings()
 		}
 		
 	}
 
+	func registerURLMappings() {
+		let urlMappings = ["home":"ListViewController",
+						   "vc00":"ViewController",
+						   "vc01":"ViewController01",
+						   "vc02":"ViewController02",
+						   "vc03":"ViewController03",
+						   "vc04":"ViewController04",
+						   "vc05":"ViewController05",
+						   "demo":"ViewControllerDemo"]
+        FBRouter.router().registURLMapping(urlmappings: urlMappings)
+		FBRouter.router().wrapNavgClass = BaseNavigationController.self as UINavigationController.Type
+	}
 
 
 	//FBRouterDelegate
