@@ -54,7 +54,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-		
+		self.navigationItem.title = "home"
 		print(FBRouter.urlMappings())
 		self.items  = FBRouter.urlMappings().keys.sorted { (value1, value2) -> Bool in
 			return value1 < value2

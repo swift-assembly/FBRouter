@@ -64,7 +64,7 @@ open class FBBaseRouter:NSObject {
         return self.urlTargetMappings[host]
     }
     
-	@discardableResult  //获取控制器
+	@discardableResult
     func obtainTargetControllerCheckURLAction(_ urlAction:FBURLAction,
                     navigationController:UINavigationController?) -> UIViewController? {
         guard let targetClass = urlAction.urlTarget?.targetClass as? UIViewController.Type else {
@@ -80,7 +80,7 @@ open class FBBaseRouter:NSObject {
                 return item.isKind(of: targetClass)
             })
             if viewController != nil {
-				if viewController!.handleWithURLAction(urlAction) {return nil}
+				if !viewController!.handleWithURLAction(urlAction) {return nil}
                 return viewController
             }
         }
