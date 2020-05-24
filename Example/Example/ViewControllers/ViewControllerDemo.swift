@@ -21,7 +21,6 @@ class ViewControllerDemo: UIViewController,UITableViewDelegate,UITableViewDataSo
 		cell.detailTextLabel?.text = ""
 		switch item {
 		case "push": 
-			self.openHostString(host: "vc01")
 			cell.detailTextLabel?.text = "router:vc01"
 			break
 		case "push_singleton":
