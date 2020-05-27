@@ -25,27 +25,27 @@
 
 API 
 =============================
-### regist routerhHost 注册路由组件的host
+### regist routerhHost 注册路由组件的host， 应用内跳转路由映射
 ```
 public func registURLMapping(urlmappings:Dictionary<String,String>)
 public static func registURLMapping(urlmappings:Dictionary<String,String>)
 ```
 
 
-### set scheme  appScheme 注册应用的scheme 
+### set scheme  appScheme 注册应用的scheme ，用以区分是应用内跳转还是应用外跳转，
 ```
 	public static func setScheme(scheme: String) 
 	public func setScheme(scheme: String) 
 
 ```
 
-### set wrapNavClass 
+### set wrapNavClass, present时如果需要自动添加导航控制器，会使用设置的基类，如果没有会使用苹果原生的导航控制器
 ```
 public static func setWrapNavgClass(className: AnyClass)
 ```
 
 
-### FBURLAction
+### FBURLAction， 路由传递模型，可以通过这个模型传递参数，和对象
 ```
 //init 
 	public convenience init(url:URL)
@@ -75,7 +75,7 @@ public func anyObject(_ key:String) -> Any?
 
 ```
 
-### UIViewController Extension
+### UIViewController Extension， 路由跳转打开方式
 ```
 @discardableResult
 func openURLAction(_ urlAction:FBURLAction) -> UIViewController? 
@@ -94,7 +94,7 @@ func openHttpURLString(httpUrl:String) -> UIViewController?
 
 ```
 
-### FBRouter Method
+### FBRouter Method,   路由打开方法
 ```
 @discardableResult
 public func openURL(url:URL,from:UIViewController) -> UIViewController? {
@@ -187,15 +187,23 @@ public static func openHttpURLString(httpUrl:String) -> UIViewController? {
 }
 ```
 
-### FBRouterDelegate 
+### FBRouterDelegate  路由跳转生命周期回调
 ```
+//将要打开链接，可以用来校验权限
 func shouldOpenURLAction(_ urlAction:FBURLAction) -> Bool
+//将要打开外部跳转链接，可以用来校验权限
 func willOpenExternal(_ urlAction:FBURLAction) -> Bool
+//已经打开外部跳转回调
 func didOpenExternal(_ urlAction:FBURLAction,success:Bool)
+//将要路由到某一个页面
 func willOpenURLAction(_ urlAction:FBURLAction)
+//未能处理的路由跳转
 func onMatchUnhandledURLAction(_ urlAction:FBURLAction)
+//正常的路由跳转
 func onMatchViewController(_ controller:UIViewController,urlAction:FBURLAction)
+//实现打开外部跳转处理方法
 func openExternal(_ urlAction:FBURLAction, completionHandler completion: ((Bool) -> Void)?)
+//登录判断方法回调
 func handleLoginAction(_ urlAction:FBURLAction,controller:UIViewController) -> Bool
 
 ```
@@ -217,6 +225,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,FBRouterDelegate{
 	
 }
 
+//注册路由方法
 func registerURLMappings() {
 	let urlMappings = ["home":"ListViewController",
 					   "vc00":"ViewController",
