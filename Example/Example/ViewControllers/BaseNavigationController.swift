@@ -7,16 +7,16 @@
 //
 
 import UIKit
-
+import FBE
 class BaseNavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		self.navigationItem.rightBarButtonItem?.title = "abcde"
-		//Do Something
+//        self.n
+        
     }
     
-
+    
     /*
     // MARK: - Navigation
 
