@@ -145,7 +145,7 @@ open class FBNavigator:NSObject {
     }
     @discardableResult
     public func openURLAction(_ urlAction:FBURLAction) -> UIViewController? {
-        guard let from = UIViewController.topController else {
+        guard let from = UIViewController.topMost else {
             return nil
         }
         return openURLAction(urlAction, from: from)
@@ -153,7 +153,7 @@ open class FBNavigator:NSObject {
     //push页面
     func push(_ urlAction:FBURLAction,from:UIViewController?) -> UIViewController? {
         //获取顶层控制器的导航栏
-        guard let navigationContrller = from?.navigationController ?? UIViewController.topController?.navigationController else {
+        guard let navigationContrller = from?.navigationController ?? UIViewController.topMost?.navigationController else {
             onMatchUnhandledURLAction(urlAction: urlAction)
             return nil
         }
@@ -215,7 +215,7 @@ open class FBNavigator:NSObject {
     //presentVC
     func present(_ urlAction:FBURLAction,from:UIViewController?) -> UIViewController? {
         //获取顶层控制器的导航栏
-        guard let currentViewController = from ?? UIViewController.topController else {
+        guard let currentViewController = from ?? UIViewController.topMost else {
             onMatchUnhandledURLAction(urlAction: urlAction)
             return nil
         }

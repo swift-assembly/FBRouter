@@ -154,5 +154,4 @@ public extension UIViewController{
         return openURLAction(FBURLAction.init(httpUrl: httpUrl))
     }
 	
-	
 }
