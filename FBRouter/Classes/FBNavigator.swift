@@ -224,9 +224,14 @@ open class FBNavigator:NSObject {
             onMatchUnhandledURLAction(urlAction: urlAction)
             return nil
         }
+        if urlAction.options.contains(.fullScreen) {
+            viewController.modalPresentationStyle = .fullScreen
+        }
         if urlAction.options.contains(FBRouterOptions.wrap_nc) {
-			currentViewController.present(wrapNavgClass.init(rootViewController: viewController), animated: urlAction.animation)
+            let navc = wrapNavgClass.init(rootViewController: viewController)
+			currentViewController.present(navc, animated: urlAction.animation)
         }else{
+            
             currentViewController.present(viewController, animated: urlAction.animation)
         }
         return viewController

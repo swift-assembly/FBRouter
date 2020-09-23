@@ -27,6 +27,7 @@ public struct FBRouterOptions:OptionSet {
 	
     public static let present 		= 	FBRouterOptions(rawValue: 1 << 5) 	//present
     public static let wrap_nc 		= 	FBRouterOptions(rawValue: 1 << 6)  //add UINavigationController when present
+    public static let fullScreen    =   FBRouterOptions(rawValue: 1 << 7)     //全屏
 	
 }
 
@@ -51,7 +52,9 @@ public class FBURLAction:NSObject {
     public var url:URL?
 	public var urlTarget:FBURLTarget?
 	public var openSuccess:Bool = false
-	
+    public var callBackBlock:((Any)->Void)? = nil
+
+    
 	override init() {
 		super.init()
 	}
