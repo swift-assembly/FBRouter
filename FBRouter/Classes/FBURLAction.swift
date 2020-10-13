@@ -166,6 +166,7 @@ public class FBURLTarget:NSObject{
     var    key:String?
     var    targetString:String?
     var    targetClass:AnyClass?
+    var    bundle:String?
     var    targetType:FBTargetType
     
     
@@ -173,11 +174,11 @@ public class FBURLTarget:NSObject{
         self.targetType = FBTargetType.undefined
     }
     
-    public convenience  init(key:String,target:String){
+    public convenience  init(key:String,target:String,bundle:String){
         self.init()
         self.key = key
         self.targetString = target
-        self.targetClass =  FBClassFromString(string: target)
+        self.targetClass =  FBClassFromString(string: target,bundle: bundle)
         if self.targetClass is UIViewController.Type{
             self.targetType = FBTargetType.controller
         }
@@ -190,6 +191,11 @@ let FBRouterAppName =  Bundle.main.object(forInfoDictionaryKey: "CFBundleName") 
 
 public func  FBClassFromString(string: String)-> AnyClass?{
     let stringName = FBRouterAppName! + "." + string
+    return NSClassFromString(stringName)
+}
+
+public func  FBClassFromString(string: String,bundle:String)-> AnyClass?{
+    let stringName = bundle + "." + string
     return NSClassFromString(stringName)
 }
 

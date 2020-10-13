@@ -50,11 +50,11 @@ open class FBNavigator:NSObject {
     
     /// 注册路由
     /// - Parameter urlmappings: urlmappings  <routerHost,className>
-	public func registURLMapping(urlmappings:Dictionary<String,String>)  {
+    public func registURLMapping(urlmappings:Dictionary<String,String>,bundle:String)  {
 		lock.lock()
         defer {lock.unlock()}
 		for item in urlmappings{
-			self.urlTargetMappings[item.key] = FBURLTarget.init(key: item.key, target: item.value)
+			self.urlTargetMappings[item.key] = FBURLTarget.init(key: item.key, target: item.value,bundle: bundle)
 			self.urlMappings[item.key] = item.value
 		}
 	}
