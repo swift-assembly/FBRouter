@@ -49,7 +49,7 @@ open class FBNavigator:NSObject {
     }
     
     /// 注册路由
-    /// - Parameter urlmappings: urlmappings  <routerHost,className>
+    /// - Parameter urlmappings: urlmappings  <routerHost,className>, 所处bundle名称
     public func registURLMapping(urlmappings:Dictionary<String,String>,bundle:String)  {
 		lock.lock()
         defer {lock.unlock()}
@@ -58,6 +58,12 @@ open class FBNavigator:NSObject {
 			self.urlMappings[item.key] = item.value
 		}
 	}
+    //bundleClass 注册类所处bundle
+    public func registURLMapping(urlmappings:Dictionary<String,String>,bundleClass:AnyClass)  {
+        let bundleName = FBBundleNameFromClass(_class: bundleClass)
+        registURLMapping(urlmappings: urlMappings, bundle: bundleName)
+    }
+    
 	@discardableResult
     func matchTargetWithURLAction(urlAction:FBURLAction) -> FBURLTarget? {
         guard let host = urlAction.url?.host  else{

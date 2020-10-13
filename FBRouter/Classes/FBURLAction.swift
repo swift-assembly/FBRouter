@@ -186,19 +186,6 @@ public class FBURLTarget:NSObject{
 }
 
 
-
-let FBRouterAppName =  Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String?
-
-public func  FBClassFromString(string: String)-> AnyClass?{
-    let stringName = FBRouterAppName! + "." + string
-    return NSClassFromString(stringName)
-}
-
-public func  FBClassFromString(string: String,bundle:String)-> AnyClass?{
-    let stringName = bundle + "." + string
-    return NSClassFromString(stringName)
-}
-
 extension UIViewController {
     private struct AssociatedKey {
         static var urlActionIdentifier: String = "urlActionIdentifier"
