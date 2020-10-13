@@ -61,7 +61,7 @@ open class FBNavigator:NSObject {
     //bundleClass 注册类所处bundle
     public func registURLMapping(urlmappings:Dictionary<String,String>,bundleClass:AnyClass)  {
         let bundleName = FBBundleNameFromClass(_class: bundleClass)
-        registURLMapping(urlmappings: urlMappings, bundle: bundleName)
+        registURLMapping(urlmappings: urlmappings, bundle: bundleName)
     }
     
 	@discardableResult
