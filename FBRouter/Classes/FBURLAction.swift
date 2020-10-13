@@ -9,9 +9,9 @@
 import UIKit
 
 public enum FBTargetType {
-    case undefined
-	case controller
-	case bridge
+     case undefined
+     case controller
+     case bridge
 }
 
 
@@ -163,11 +163,11 @@ extension String {
 
 
 public class FBURLTarget:NSObject{
-    var    key:String?
-    var    targetString:String?
-    var    targetClass:AnyClass?
-    var    bundle:String?
-    var    targetType:FBTargetType
+    public var    key:String?
+    public var    targetString:String?
+    public var    targetClass:AnyClass?
+    public var    bundle:String?
+    public var    targetType:FBTargetType = FBTargetType.undefined
     
     
     public override init() {
