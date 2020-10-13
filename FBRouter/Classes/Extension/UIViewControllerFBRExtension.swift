@@ -32,14 +32,14 @@ extension UIViewController:UIGestureRecognizerDelegate {
     }
     
     
-    @objc open func fbr_viewDidLoad() {
-        fbr_viewDidLoad()
-    }
+//    @objc open func fbr_viewDidLoad() {
+//        fbr_viewDidLoad()
+//    }
     
     
     
     class func initializeVCMethod() {
-        self.swizzleMethod(for: self, originalSelector: #selector(viewDidLoad), swizzledSelector: #selector(fbr_viewDidLoad))
+//        self.swizzleMethod(for: self, originalSelector: #selector(viewDidLoad), swizzledSelector: #selector(fbr_viewDidLoad))
     }
 
 }
