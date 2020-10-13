@@ -26,26 +26,14 @@ extension UIViewController:UIGestureRecognizerDelegate {
         return false
     }
     
-     @objc open func canSlideBack() -> Bool{
-         return true
-     }
-    
-    
-    
-    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if (gestureRecognizer == navigationController?.interactivePopGestureRecognizer) {
-            if navigationController?.viewControllers.count ?? 1 < 2 {
-                return false
-            }
-            return canSlideBack()
-        }
-        return false
+    //是否允许侧滑返回- 默认允许
+    @objc open func canSlideBack() -> Bool{
+        return true
     }
     
     
     @objc open func fbr_viewDidLoad() {
         fbr_viewDidLoad()
-        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     

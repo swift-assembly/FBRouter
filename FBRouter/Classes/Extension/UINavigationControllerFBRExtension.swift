@@ -117,9 +117,21 @@ extension UINavigationController :UIGestureRecognizerDelegate{
     
     
     
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if (gestureRecognizer == interactivePopGestureRecognizer) {
+            return viewControllers.last?.canSlideBack() ?? false
+        }
+        return false
+    }
+    
+    
     class func initializeMethod() {
         self.swizzleMethod(for: self, originalSelector: #selector(pushViewController(_:animated:)), swizzledSelector: #selector(fbr_pushViewController(_:animated:)))
-       
     }
     
 }
