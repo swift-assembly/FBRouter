@@ -206,6 +206,7 @@ extension UIViewController {
     convenience init(urlAction:FBURLAction) {
         self.init()
         self.urlAction = urlAction
+        
     }
     
 }

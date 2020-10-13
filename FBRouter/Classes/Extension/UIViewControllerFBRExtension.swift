@@ -9,7 +9,7 @@
 import UIKit
 
 
-extension UIViewController {
+extension UIViewController:UIGestureRecognizerDelegate {
     
     @discardableResult
     @objc open func handleWithURLAction(_ urlAction:FBURLAction) ->Bool{
@@ -26,11 +26,42 @@ extension UIViewController {
         return false
     }
     
+     @objc open func canSlideBack() -> Bool{
+         return true
+     }
+    
+    
+    
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if (gestureRecognizer == navigationController?.interactivePopGestureRecognizer) {
+            if navigationController?.viewControllers.count ?? 1 < 2 {
+                return false
+            }
+            return canSlideBack()
+        }
+        return false
+    }
+    
+    
+    @objc open func fbr_viewDidLoad() {
+        fbr_viewDidLoad()
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    
+    
+    class func initializeVCMethod() {
+        self.swizzleMethod(for: self, originalSelector: #selector(viewDidLoad), swizzledSelector: #selector(fbr_viewDidLoad))
+    }
+
 }
 
 
 
+
+
 extension UIViewController {
+    
     private class var sharedApplication: UIApplication? {
       let selector = NSSelectorFromString("sharedApplication")
       return UIApplication.perform(selector)?.takeUnretainedValue() as? UIApplication
