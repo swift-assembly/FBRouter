@@ -18,6 +18,9 @@ extension UINavigationController :UIGestureRecognizerDelegate{
     private struct AssociatedKey {
         static var inAnimatingIdentifier: String = "inAnimatingIdentifier"
     }
+    
+    
+    
     public var inAnimating:Bool{
         get {
             return objc_getAssociatedObject(self, &AssociatedKey.inAnimatingIdentifier) as? Bool ?? false

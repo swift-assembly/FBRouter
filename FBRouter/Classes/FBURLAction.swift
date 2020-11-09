@@ -122,6 +122,23 @@ extension FBURLAction{
     public func setAny(_ key:String, value:Any) {
         self.params[key.lowercased()] = value
     }
+    
+    public func setInt(_ value:Int, key:String) {
+        self.params[key.lowercased()] = value
+    }
+    public func setDouble(_ value:Double,key:String) {
+        self.params[key.lowercased()] = value
+    }
+    public func setString(_ value:String, key:String) {
+        self.params[key.lowercased()] = value
+    }
+    public func setBool(_ value:Bool, key:String) {
+        self.params[key.lowercased()] = value
+    }
+    public func setAny(_ value:Any, key:String) {
+        self.params[key.lowercased()] = value
+    }
+    
     public func integer(_ key:String) -> NSInteger? {
         return self.params[key] as? NSInteger
     }
@@ -137,6 +154,11 @@ extension FBURLAction{
     public func bool(_ key:String) -> Bool?{
         return self.params[key] as? Bool
     }
+    public func setInteger(_ value:NSInteger, key:String) {
+        self.params[key.lowercased()] = value
+    }
+    
+    
     public func anyObject(_ key:String) -> Any?{
         return self.params[key]
     }
