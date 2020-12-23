@@ -66,7 +66,7 @@ public class FBURLAction:NSObject {
             return
         }
         for item in para {
-            params[item.key.lowercased()] = item.value
+            params[item.key] = item.value
         }
     }
     
@@ -104,39 +104,39 @@ extension FBURLAction{
 	///   - key: key String
 	///   - value: value
     public func setInteger(_ key:String, value:NSInteger) {
-        self.params[key.lowercased()] = value
+        self.params[key] = value
     }
 	
     public func setInt(_ key:String, value:Int) {
-        self.params[key.lowercased()] = value
+        self.params[key] = value
     }
     public func setDouble(_ key:String, value:Double) {
-        self.params[key.lowercased()] = value
+        self.params[key] = value
     }
     public func setString(_ key:String, value:String) {
-        self.params[key.lowercased()] = value
+        self.params[key] = value
     }
     public func setBool(_ key:String, value:Bool) {
-        self.params[key.lowercased()] = value
+        self.params[key] = value
     }
     public func setAny(_ key:String, value:Any) {
-        self.params[key.lowercased()] = value
+        self.params[key] = value
     }
     
     public func setInt(_ value:Int, key:String) {
-        self.params[key.lowercased()] = value
+        self.params[key] = value
     }
     public func setDouble(_ value:Double,key:String) {
-        self.params[key.lowercased()] = value
+        self.params[key] = value
     }
     public func setString(_ value:String, key:String) {
-        self.params[key.lowercased()] = value
+        self.params[key] = value
     }
     public func setBool(_ value:Bool, key:String) {
-        self.params[key.lowercased()] = value
+        self.params[key] = value
     }
     public func setAny(_ value:Any, key:String) {
-        self.params[key.lowercased()] = value
+        self.params[key] = value
     }
     
     public func integer(_ key:String) -> NSInteger? {
@@ -155,7 +155,7 @@ extension FBURLAction{
         return self.params[key] as? Bool
     }
     public func setInteger(_ value:NSInteger, key:String) {
-        self.params[key.lowercased()] = value
+        self.params[key] = value
     }
     
     
@@ -165,7 +165,10 @@ extension FBURLAction{
 	
     public func addEntriesFromDictonary(entries:Dictionary<String, Any>){
         for item in entries{
-            self.params[item.key.lowercased()] = item.value
+            if item.key == "url" {
+                continue
+            }
+            self.params[item.key] = item.value
         }
     }
 	
