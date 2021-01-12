@@ -122,10 +122,7 @@ open class FBNavigator:NSObject {
             openExternal(urlAction: urlAction, completionHandler:{
                 (success) in
                 self.didOpenExternal(urlAction: urlAction,success:success )
-                guard let complete = urlAction.completeBlock else{
-                    return
-                }
-                complete(success)
+                urlAction.completeBlock?(success)
             })
             return nil
         }
@@ -284,10 +281,7 @@ open class FBNavigator:NSObject {
 	
 
     func callBack(urlAction:FBURLAction,success:Bool) {
-        guard let complete = urlAction.completeBlock else{
-            return
-        }
-        complete(success)
+        urlAction.completeBlock?(success)
     }
     
 
@@ -348,10 +342,7 @@ open class FBNavigator:NSObject {
         
         UIApplication.shared.open(urlAction.url!, options: [:], completionHandler:{
             (success) in
-            guard let complete = urlAction.completeBlock else{
-                return
-            }
-            complete(success)
+            urlAction.completeBlock?(success)
         })
     }
     
@@ -368,6 +359,12 @@ open class FBNavigator:NSObject {
         return false
     }
     
+}
+
+extension FBNavigator {
+    func pop2Host(host:String) -> Bool {
+        return false
+    }
 }
 
 

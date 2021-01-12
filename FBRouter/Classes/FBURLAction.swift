@@ -53,7 +53,8 @@ public class FBURLAction:NSObject {
 	public var urlTarget:FBURLTarget?
 	public var openSuccess:Bool = false
     public var callBackBlock:((Any)->Void)? = nil
-
+    
+    
     
 	override init() {
 		super.init()
