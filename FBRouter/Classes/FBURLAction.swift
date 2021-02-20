@@ -166,9 +166,9 @@ extension FBURLAction{
 	
     public func addEntriesFromDictonary(entries:Dictionary<String, Any>){
         for item in entries{
-            if item.key == "url" {
-                continue
-            }
+//            if item.key == "url" {
+//                continue
+//            }
             self.params[item.key] = item.value
         }
     }
