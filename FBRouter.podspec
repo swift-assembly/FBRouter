@@ -9,11 +9,11 @@
 Pod::Spec.new do |s|
   s.name             = 'FBRouter'
   s.version          = '1.0.0'
-  s.summary          = 'app '
+  s.summary          = '路由组件'
 
 
   s.description      = <<-DESC
-        app 
+        简单易用的路由组件 
                        DESC
 
   s.homepage         = 'https://github.com/swift-assembly/FBRouter'
@@ -23,8 +23,8 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = "14.0"
   
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
-  
+  s.swift_version = '5.0'
+
   s.subspec 'FBRouter' do |ss|
     ss.source_files = ['FBRouter/Classes/**/*']
   end
