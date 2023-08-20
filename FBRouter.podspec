@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = "14.0"
   
-
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
   
   s.subspec 'FBRouter' do |ss|
     ss.source_files = ['FBRouter/Classes/**/*']
