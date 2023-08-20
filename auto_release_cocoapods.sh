@@ -3,7 +3,8 @@
 
 pod spec lint
 
-pod trunk register flywithbug@gmail.com 'flywithbug' --description=路由组件 
+pod trunk register flywithbug@gmail.com flywithbug  --verbose
+#邮箱验证
 
 #上传
 pod trunk push FBRouter.podspec --allow-warnings
