@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol FBRouterDelegate:class {
+public protocol FBRouterDelegate:AnyObject {
     /// 能否打开urlAction
     /// - Parameter urlAction: urlAction description
     func shouldOpenURLAction(_ urlAction:FBURLAction) -> Bool

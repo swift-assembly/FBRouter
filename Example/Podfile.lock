@@ -1,7 +1,7 @@
 PODS:
-  - FBRouter (0.0.2):
-    - FBRouter/FBRouter (= 0.0.2)
-  - FBRouter/FBRouter (0.0.2)
+  - FBRouter (0.0.4):
+    - FBRouter/FBRouter (= 0.0.4)
+  - FBRouter/FBRouter (0.0.4)
 
 DEPENDENCIES:
   - FBRouter (from `../`)
@@ -11,8 +11,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  FBRouter: 8a4a92272078081af4bd5306befe489d8083a7d1
+  FBRouter: 394ec64f09c6f15ba96529fdda7fe61951d48c01
 
-PODFILE CHECKSUM: 9e3ef94e009e8f2b1dea77a9edc6ac3b1fe6f487
+PODFILE CHECKSUM: 3ac67ad5c8044398b71b423c2961daa9246035d4
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.12.1
